@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-25",
-  "snapshot_files": 240,
-  "snapshot_mib": 37.81,
+  "date": "2026-11-09",
+  "snapshot_files": 246,
+  "snapshot_mib": 37.96,
   "excluded_mixamo_assets": [
     "Gameplay/Anims/Roll/AS_Greystone_StandToRoll.uasset",
     "Gameplay/Anims/Roll/Source/AS_Mixamo_StandToRoll.uasset",
@@ -607,7 +607,7 @@
     },
     {
       "path": "Gameplay/AI/BP_EnemyAIController.uasset",
-      "sha256": "9b63f65c7c8fa9bdd5997ba43f83c9a57a43a1ee94ce0795b7ac8a63d8aaf471"
+      "sha256": "0926882843f35f26e9436db7a8197d61558095278ac3c2a84a5149a50a490719"
     },
     {
       "path": "Gameplay/AI/BT_Enemy.uasset",
@@ -635,7 +635,7 @@
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BT_DS3BrokenSword.uasset",
-      "sha256": "9a027988b59dea00bf6ac4fb0e7bfd10ec048e710cd9463fa19172dc81906424"
+      "sha256": "cb742e93a654c2884f38e8b4f1d43ee454cdffa579f811eb409c2a9849135c3f"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSAfterAttack.uasset",
@@ -664,6 +664,30 @@
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSRelativeMove.uasset",
       "sha256": "28416d76565ff4dfd9a0d00ccf4fb060373bfc38b798c226d0b94e84e0f8998d"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BB_DS3_Standard.uasset",
+      "sha256": "23960a753e1f288c3d3d60aaa794b44a6d6dd455c276c65ec34d46fdb4aefd3e"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_CombatOverview.uasset",
+      "sha256": "153168c15709b1693b639bb59b4cae00cdb7623e1f2735d71187a4b72dfb8ab3"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.uasset",
+      "sha256": "5c38216c8ffa5c73fb817433b5600baa32610282259b2195c89571ff67b2851d"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.uasset",
+      "sha256": "eab6fa770a484cd7f8d6c46dea1071965f08688f1ef9c3abced9aabdac435f7b"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.uasset",
+      "sha256": "a2165dee2933d21a993e3869d31daf5d95bbdb86175d22cd2301d85faf89ca9d"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.uasset",
+      "sha256": "6c865cf5d3286895d31a897131ea66175cd4a6769ccef1b03fe8e5cd35ddef9b"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/Validation/BT_DS3PostProbability.uasset",

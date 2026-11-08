@@ -24,3 +24,6 @@ preloader_*.log
 # Python 工具运行缓存
 __pycache__/
 *.pyc
+
+# 本地工具的云端部署元数据不随代码备份发布
+/ashen-tree/.openai/

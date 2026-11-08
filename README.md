@@ -33,6 +33,7 @@ powershell -ExecutionPolicy Bypass -File .\Tools\Restore-ProjectContent.ps1
 该脚本将自有资产复制回 `Content/`，发现同路径内容不同时会停止，只有显式传入 `-Overwrite` 才覆盖。
 
 ## 进度
+- 2026-11-09：同步断剑怪物可读标准版。当前控制器使用 `StandardReadable/BT_DS3_CombatOverview` 与独立 Actor 目标黑板，四类行动子树保留原11种行动，17项运行检查通过，待玩家试玩。见[阅读指南](docs/design/断剑敌人行为树阅读指南.md)、[运行记录](docs/reproduction/ds3-standard-validation-2026-11-08.json)；[本地HTML说明](ashen-tree/断剑怪物-行为说明.html)与[行为树整理器](ashen-tree/README.md)均可离线查看，不使用 Sites。
 - 2026-10-25：角色已切换断剑110050逻辑复刻树，旧两版树归档；原权重、动作内接近、连击及攻击后调整已接入，22项检查通过（含1000次概率抽样）。动画、侧移和特殊效果存在替代项，待试玩。见[复刻与参数位置](docs/design/断剑敌人行为树复刻.md)、[日志26](docs/log/26-断剑敌人行为树复刻原型.md)。
 - 2026-10-25：已记录 DSLuaDecompiler 的 Fork、Star 与黑魂3真实脚本验证（43份可重编译，33份严格匹配）；选断剑敌人110050作为普通近战样本并反推等价行为树，尚未据此修改UE资产。见[实测与阅读入口](docs/research/05-黑魂3脚本实测与阅读入口.md)、[断剑敌人行为树反推](docs/research/06-黑魂3断剑敌人行为树反推.md)及[日志25](docs/log/25-黑魂3脚本研究与行为树反推.md)。
 - 2026-10-24：怪物正式主干改为 BT_EnemyMeleeCombat_V2，追击/警戒保持距离/接近出招统一在树中调度，旧控制器Tick入口断开。用户指定140→200后退、190→150靠近；9项运行检查通过，待手感验收。见[主干与调参](docs/design/角色行为树-追击警戒攻击.md)、[日志24](docs/log/24-行为树主干与警戒距离迁移.md)及[AAA敌人AI公开资料](docs/research/03-AAA敌人AI落地方案.md)。

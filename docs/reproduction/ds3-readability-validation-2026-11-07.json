@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "node_count": 89,
+  "saved_labels_verified": true,
+  "full_export_except_presentation_unchanged": true,
+  "allowed_presentation_fields": [
+    "NodeName",
+    "NodeComment",
+    "CachedDescription"
+  ]
+}

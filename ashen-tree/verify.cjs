@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),BT=require('./dist/engine.js'),Model=require('./dist/model.js');
+const nodes=Model.skeleton(),ctx={hp:100,spawned:true,combatIntent:true,targetVisible:true,executed:false,staggered:false,guardBroken:false,knockedBack:false,phasePending:false,threat:false,heavyReady:false,distance:2,outsideHome:false,suspicious:false,patrolEnabled:true,animationEnd:false};
+let mem={},r=BT.tick(nodes,ctx,mem);assert.equal(r.active,'light_a0');
+r=BT.tick(nodes,{...ctx,staggered:true},mem);assert.equal(r.active,'stagger_a0');assert(r.trace.some(t=>t.includes('中断')));
+r=BT.tick(nodes,{...ctx,hp:0},mem);assert.equal(r.active,'death_a0');
+mem={};r=BT.tick(nodes,{...ctx,spawned:false},mem);assert.equal(r.active,'spawn_a0');r=BT.tick(nodes,{...ctx,spawned:false,animationEnd:true},mem);assert.equal(r.status,'SUCCESS');assert(r.trace.some(t=>t.includes('初始化 AI → SUCCESS')));
+mem={};BT.tick(nodes,ctx,mem);r=BT.tick(nodes,{...ctx,combatIntent:false},mem);assert.equal(r.active,'patrol_a0');
+mem={};BT.tick(nodes,ctx,mem);r=BT.tick(nodes,{...ctx,animationEnd:true},mem);assert.equal(r.active,'light_a1');
+assert.equal(BT.evaluate('hp > 3 && custom == true',ctx),null);
+let migrated=Model.migrate({schemaVersion:1,title:'legacy',states:[{id:'old',name:'轻攻击',raw:'原文',parent:'s12'}],monsters:['示例'],log:[]});assert.equal(migrated.states[0].raw,'原文');assert.equal(migrated.legacyTree[0].parent,'s12');
+console.log('Passed: attack, interruption, death, spawn sequence, combat exit, action completion, unknown condition, legacy preservation.');

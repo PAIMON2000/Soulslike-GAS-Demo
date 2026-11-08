@@ -1,0 +1,269 @@
+{
+  "date": "2026-11-08",
+  "main": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_CombatOverview.BT_DS3_CombatOverview",
+  "runtime_check_count": 17,
+  "runtime_passed": true,
+  "runtime_tests": [
+    {
+      "name": "weights_far",
+      "passed": true,
+      "expected": {
+        "1": 15,
+        "2": 10,
+        "4": 0,
+        "5": 10,
+        "6": 45,
+        "12": 20
+      },
+      "actual": {
+        "1": 15.0,
+        "2": 10.0,
+        "4": 0.0,
+        "5": 10.0,
+        "6": 45.0,
+        "12": 20.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_1"
+    },
+    {
+      "name": "weights_mid",
+      "passed": true,
+      "expected": {
+        "1": 20,
+        "2": 20,
+        "4": 15,
+        "5": 35,
+        "6": 0,
+        "12": 10
+      },
+      "actual": {
+        "1": 20.0,
+        "2": 20.0,
+        "4": 15.0,
+        "5": 35.0,
+        "6": 0.0,
+        "12": 10.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_2"
+    },
+    {
+      "name": "weights_near",
+      "passed": true,
+      "expected": {
+        "1": 25,
+        "2": 15,
+        "4": 15,
+        "5": 45,
+        "6": 0,
+        "12": 0
+      },
+      "actual": {
+        "1": 25.0,
+        "2": 15.0,
+        "4": 15.0,
+        "5": 45.0,
+        "6": 0.0,
+        "12": 0.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_3"
+    },
+    {
+      "name": "weights_3003_cooldown",
+      "passed": true,
+      "expected": {
+        "1": 20,
+        "2": 20,
+        "4": 15,
+        "5": 0,
+        "6": 0,
+        "12": 10
+      },
+      "actual": {
+        "1": 20.0,
+        "2": 20.0,
+        "4": 15.0,
+        "5": 0.0,
+        "6": 0.0,
+        "12": 10.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_4"
+    },
+    {
+      "name": "weights_right",
+      "passed": true,
+      "expected": {
+        "1": 0,
+        "2": 30,
+        "5": 15,
+        "13": 55
+      },
+      "actual": {
+        "1": 0.0,
+        "2": 30.0,
+        "5": 15.0,
+        "13": 55.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_5"
+    },
+    {
+      "name": "weights_behind",
+      "passed": true,
+      "expected": {
+        "1": 0,
+        "5": 0,
+        "13": 100
+      },
+      "actual": {
+        "1": 0.0,
+        "5": 0.0,
+        "13": 100.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_6"
+    },
+    {
+      "name": "weights_spectator",
+      "passed": true,
+      "expected": {
+        "11": 60,
+        "12": 40
+      },
+      "actual": {
+        "11": 60.0,
+        "12": 40.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_7"
+    },
+    {
+      "name": "weights_encircle",
+      "passed": true,
+      "expected": {
+        "6": 20,
+        "11": 50,
+        "12": 30
+      },
+      "actual": {
+        "6": 20.0,
+        "11": 50.0,
+        "12": 30.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_8"
+    },
+    {
+      "name": "weights_event",
+      "passed": true,
+      "expected": {
+        "20": 100
+      },
+      "actual": {
+        "20": 100.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_9"
+    },
+    {
+      "name": "weights_special144041",
+      "passed": true,
+      "expected": {
+        "20": 100
+      },
+      "actual": {
+        "20": 100.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_10"
+    },
+    {
+      "name": "weights_special144040_weights",
+      "passed": true,
+      "expected": {
+        "20": 10,
+        "21": 20,
+        "6": 45
+      },
+      "actual": {
+        "20": 10.0,
+        "21": 20.0,
+        "6": 45.0
+      },
+      "runtime_task": "/Memory/UEDPIE_0_NewMap_7QSLH1TPPYF8NLCNZ2RUJS0DL.NewMap:PersistentLevel.BP_EnemyAIController_C_0.BehaviorTreeComponent_0.BTT_DSDecide_C_11"
+    },
+    {
+      "name": "approach_then_committed_combo",
+      "passed": true,
+      "attack_ids": [
+        3000,
+        3001,
+        3002
+      ],
+      "first_attack_min_distance": 152.5430908203125,
+      "max_speed": 300.0
+    },
+    {
+      "name": "sideway_moves_and_holds_distance",
+      "passed": true,
+      "lateral": 149.09230502480986,
+      "distance_min": 395.41009521484375,
+      "distance_max": 450.0
+    },
+    {
+      "name": "retreat_is_executed",
+      "passed": true,
+      "distance": 407.9462585449219
+    },
+    {
+      "name": "long_action_uses_distinct_approach_and_advance",
+      "passed": true,
+      "start": {
+        "distance": 679.5634765625,
+        "time": 1.3576116003096104
+      },
+      "min_distance": 30.921585083007812
+    },
+    {
+      "name": "stop_tree_cancels_attack_and_movement",
+      "passed": true,
+      "active": false,
+      "speed": 0.0
+    },
+    {
+      "name": "invalid_target_cancels_navigation",
+      "passed": true,
+      "speed": 0.0
+    }
+  ],
+  "reload_verification": {
+    "passed": true,
+    "checked_action_count": 11,
+    "checked_actions": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      11,
+      12,
+      13,
+      20,
+      21,
+      54
+    ],
+    "saved_action_configuration_and_order_unchanged": true,
+    "group_calls_verified": true,
+    "target_key_typed_as_actor": true,
+    "main": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_CombatOverview.BT_DS3_CombatOverview"
+  },
+  "blackboard_fix": {
+    "blackboard": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BB_DS3_Standard.BB_DS3_Standard",
+    "target_type": "Actor",
+    "restored_move_targets": [
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTTask_MoveTo_0",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach2",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach4",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach5",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Approach6",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Approach11",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach20",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach21",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach54"
+    ],
+    "normal_save_twice": true
+  }
+}
