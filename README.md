@@ -1,8 +1,13 @@
+> 2026-11-09：断剑怪已切换到 **树上决策版** `Tactical/BT_BrokenSword_Combat`。选招与攻击后走位条件在树上，旧总览已退役。[阅读指南](docs/design/断剑敌人-树上决策版.md)。
+
 # ProjectUnreal · 魂类 ARPG Demo(UE 5.8 + GAS)
 
 一个游戏策划在 AI 结对编程协助下,用 UE 5.8 + Gameplay Ability System 从零搭建魂类 ARPG 求职 demo 的**全程实录项目**。
 
 ## 从这里开始读
+
+- **[明日继续：当前入口与公司电脑恢复](docs/明日继续.md)**
+- **[断剑怪：最小只读阅读页](ashen-tree/断剑怪-从这里看.html)**
 
 - **[跟做教程:从空工程到 GAS 战斗地基](docs/tutorial.html)** —— 主线流程,含全部翻车实录(给 AI 伙伴们的留言也在里面 🤖⭐)
 - [开发者笔记 01 · GAS 地基](docs/notes/gas-foundation.html) —— 概念 + 完整代码 + 编辑器点击级步骤
@@ -33,6 +38,8 @@ powershell -ExecutionPolicy Bypass -File .\Tools\Restore-ProjectContent.ps1
 该脚本将自有资产复制回 `Content/`，发现同路径内容不同时会停止，只有显式传入 `-Overwrite` 才覆盖。
 
 ## 进度
+- 2026-11-09 最新：完成树上决策版，入口为 `Tactical/BT_BrokenSword_Combat`，旧总览已退役；转向速度提高到360度/秒。新增从控制器绑定生成的可折叠只读阅读页，当前优先解决主树、起点、执行顺序和条件的理解问题。
+- 2026-11-09：按用户要求删除8棵无引用的旧行为树和试建树，快照与恢复清单同步清理，当前游戏入口统一为 `StandardReadable/BT_DS3_CombatOverview`。离线备份移出Content；清理后11种行动再次校验通过。BTT内部复杂度已审计，内部可读性重构尚未进行，见[清理与问题记录](docs/log/28-删除停用行为树与BTT可读性问题.md)。
 - 2026-11-09：同步断剑怪物可读标准版。当前控制器使用 `StandardReadable/BT_DS3_CombatOverview` 与独立 Actor 目标黑板，四类行动子树保留原11种行动，17项运行检查通过，待玩家试玩。见[阅读指南](docs/design/断剑敌人行为树阅读指南.md)、[运行记录](docs/reproduction/ds3-standard-validation-2026-11-08.json)；[本地HTML说明](ashen-tree/断剑怪物-行为说明.html)与[行为树整理器](ashen-tree/README.md)均可离线查看，不使用 Sites。
 - 2026-10-25：角色已切换断剑110050逻辑复刻树，旧两版树归档；原权重、动作内接近、连击及攻击后调整已接入，22项检查通过（含1000次概率抽样）。动画、侧移和特殊效果存在替代项，待试玩。见[复刻与参数位置](docs/design/断剑敌人行为树复刻.md)、[日志26](docs/log/26-断剑敌人行为树复刻原型.md)。
 - 2026-10-25：已记录 DSLuaDecompiler 的 Fork、Star 与黑魂3真实脚本验证（43份可重编译，33份严格匹配）；选断剑敌人110050作为普通近战样本并反推等价行为树，尚未据此修改UE资产。见[实测与阅读入口](docs/research/05-黑魂3脚本实测与阅读入口.md)、[断剑敌人行为树反推](docs/research/06-黑魂3断剑敌人行为树反推.md)及[日志25](docs/log/25-黑魂3脚本研究与行为树反推.md)。

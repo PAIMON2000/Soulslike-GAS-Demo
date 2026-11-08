@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "default": 360,
+  "changes": [
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTT_DSLocomotion_C_0",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode2",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode4",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode5",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Mode6",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode11",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode12",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode13",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode20",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode21",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode54",
+      "old": 180.0,
+      "new": 360
+    },
+    {
+      "node": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_AfterMode",
+      "old": 180.0,
+      "new": 360
+    }
+  ]
+}

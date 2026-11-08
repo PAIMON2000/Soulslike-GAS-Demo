@@ -1,0 +1,720 @@
+{
+  "1": {
+    "shape": {
+      "name": "BTComposite_Sequence_0",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_13"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "BTT_DSLocomotion_C_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "BTTask_MoveTo_0",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_5"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "ComboLength1",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSComboChoice.BTT_DSComboChoice_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike1_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike1_1",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "ThirdChoice1",
+          "cls": "/Script/AIModule.BTComposite_Selector",
+          "decorators": [],
+          "ops": [],
+          "children": [
+            {
+              "name": "Strike1_2",
+              "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+              "decorators": [
+                "BTDecorator_Blackboard_12"
+              ],
+              "ops": [],
+              "children": []
+            },
+            {
+              "name": "NoThird1",
+              "cls": "/Script/AIModule.BTTask_Wait",
+              "decorators": [],
+              "ops": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_13": [
+        "   IntValue=1",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "BTT_DSLocomotion_C_0": [
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_5": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "BTTask_MoveTo_0": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "ComboLength1": [
+        "   bShowPropertyDetails=False"
+      ],
+      "Strike1_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3000.AM_DSBrokenSword_3000'\"",
+        "   bShowPropertyDetails=False"
+      ],
+      "Strike1_1": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3001.AM_DSBrokenSword_3001'\"",
+        "   SourceAttackID=3001",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_Blackboard_12": [
+        "   BlackboardKey=(SelectedKeyName=\"ThirdHit\")"
+      ],
+      "Strike1_2": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3002.AM_DSBrokenSword_3002'\"",
+        "   SourceAttackID=3002",
+        "   bShowPropertyDetails=False"
+      ],
+      "NoThird1": [
+        "   WaitTime=(DefaultValue=0.000000)"
+      ]
+    }
+  },
+  "2": {
+    "shape": {
+      "name": "Act2",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_16"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode2",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach2",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_0"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "ComboLength2",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSComboChoice.BTT_DSComboChoice_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike2_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike2_1",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "ThirdChoice2",
+          "cls": "/Script/AIModule.BTComposite_Selector",
+          "decorators": [],
+          "ops": [],
+          "children": [
+            {
+              "name": "Strike2_2",
+              "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+              "decorators": [
+                "BTDecorator_Blackboard_0"
+              ],
+              "ops": [],
+              "children": []
+            },
+            {
+              "name": "NoThird2",
+              "cls": "/Script/AIModule.BTTask_Wait",
+              "decorators": [],
+              "ops": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_16": [
+        "   IntValue=2",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode2": [
+        "   BaseRange=2.200000",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_0": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach2": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "ComboLength2": [
+        "   bShowPropertyDetails=False"
+      ],
+      "Strike2_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3001.AM_DSBrokenSword_3001'\"",
+        "   SourceAttackID=3001",
+        "   bShowPropertyDetails=False"
+      ],
+      "Strike2_1": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3002.AM_DSBrokenSword_3002'\"",
+        "   SourceAttackID=3002",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_Blackboard_0": [
+        "   BlackboardKey=(SelectedKeyName=\"ThirdHit\")"
+      ],
+      "Strike2_2": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3000.AM_DSBrokenSword_3000'\"",
+        "   bShowPropertyDetails=False"
+      ],
+      "NoThird2": [
+        "   WaitTime=(DefaultValue=0.000000)"
+      ]
+    }
+  },
+  "4": {
+    "shape": {
+      "name": "Act4",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_15"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode4",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach4",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_6"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike4_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike4_1",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_15": [
+        "   IntValue=4",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode4": [
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_6": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach4": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Strike4_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3002.AM_DSBrokenSword_3002'\"",
+        "   SourceAttackID=3002",
+        "   bShowPropertyDetails=False"
+      ],
+      "Strike4_1": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3001.AM_DSBrokenSword_3001'\"",
+        "   SourceAttackID=3001",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "5": {
+    "shape": {
+      "name": "Act5",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_11"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode5",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach5",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_4"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike5_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_11": [
+        "   IntValue=5",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode5": [
+        "   BaseRange=2.000000",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_4": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach5": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Strike5_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3003.AM_DSBrokenSword_3003'\"",
+        "   SourceAttackID=3003",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "6": {
+    "shape": {
+      "name": "Act6",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_10"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode6",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach6",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_3"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike6_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_10": [
+        "   IntValue=6",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode6": [
+        "   BaseRange=7.200000",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_3": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach6": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Strike6_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_3007.AM_DSBrokenSword_3007'\"",
+        "   SourceAttackID=3007",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "20": {
+    "shape": {
+      "name": "Act20",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_9"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode20",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach20",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_2"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike20_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_9": [
+        "   IntValue=20",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode20": [
+        "   BaseRange=20.000000",
+        "   RunOffset=1.000000",
+        "   RunChance=50",
+        "   ForceRunOffset=10.000000",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_2": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach20": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Strike20_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_20005.AM_DSBrokenSword_20005'\"",
+        "   SourceAttackID=20005",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "21": {
+    "shape": {
+      "name": "Act21",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_8"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode21",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach21",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [
+            "BTDecorator_TimeLimit_1"
+          ],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Strike21_0",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSAttack.BTT_DSAttack_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_8": [
+        "   IntValue=21",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode21": [
+        "   BaseRange=15.000000",
+        "   RunOffset=1.000000",
+        "   RunChance=50",
+        "   ForceRunOffset=10.000000",
+        "   bShowPropertyDetails=False"
+      ],
+      "BTDecorator_TimeLimit_1": [
+        "   TimeLimit=(DefaultValue=8.000000,Key=\"ApproachLife\")"
+      ],
+      "Approach21": [
+        "   AcceptableRadius=(DefaultValue=0.000000,Key=\"ApproachRadius\")",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Strike21_0": [
+        "   Montage=\"/Script/Engine.AnimMontage'/Game/Gameplay/Anims/Enemy/DS3BrokenSword/AM_DSBrokenSword_20006.AM_DSBrokenSword_20006'\"",
+        "   SourceAttackID=20006",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "11": {
+    "shape": {
+      "name": "Act11",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_7"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode11",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach11",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Retreat11",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSRelativeMove.BTT_DSRelativeMove_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_7": [
+        "   IntValue=11",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode11": [
+        "   AlwaysWalk=True",
+        "   bShowPropertyDetails=False"
+      ],
+      "Approach11": [
+        "   AcceptableRadius=(DefaultValue=1000.000000)",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ],
+      "Retreat11": [
+        "   Mode=2",
+        "   Duration=4.000000",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "12": {
+    "shape": {
+      "name": "Act12",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_6"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode12",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Relative12",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSRelativeMove.BTT_DSRelativeMove_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_6": [
+        "   IntValue=12",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode12": [
+        "   AlwaysWalk=True",
+        "   bShowPropertyDetails=False"
+      ],
+      "Relative12": [
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "13": {
+    "shape": {
+      "name": "Act13",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_5"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode13",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Relative13",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSRelativeMove.BTT_DSRelativeMove_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_5": [
+        "   IntValue=13",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode13": [
+        "   AlwaysWalk=True",
+        "   bShowPropertyDetails=False"
+      ],
+      "Relative13": [
+        "   Mode=4",
+        "   Duration=3.000000",
+        "   bShowPropertyDetails=False"
+      ]
+    }
+  },
+  "54": {
+    "shape": {
+      "name": "Act54",
+      "cls": "/Script/AIModule.BTComposite_Sequence",
+      "decorators": [
+        "BTDecorator_Blackboard_4"
+      ],
+      "ops": [],
+      "children": [
+        {
+          "name": "Mode54",
+          "cls": "/Game/Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.BTT_DSLocomotion_C",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        },
+        {
+          "name": "Approach54",
+          "cls": "/Script/AIModule.BTTask_MoveTo",
+          "decorators": [],
+          "ops": [],
+          "children": []
+        }
+      ]
+    },
+    "configuration": {
+      "BTDecorator_Blackboard_4": [
+        "   IntValue=54",
+        "   BlackboardKey=(SelectedKeyName=\"Action\")"
+      ],
+      "Mode54": [
+        "   BaseRange=1.000000",
+        "   RunOffset=0.000000",
+        "   bShowPropertyDetails=False"
+      ],
+      "Approach54": [
+        "   AcceptableRadius=(DefaultValue=100.000000)",
+        "   bReachTestIncludesAgentRadius=(DefaultValue=False)",
+        "   bReachTestIncludesGoalRadius=(DefaultValue=False)",
+        "   BlackboardKey=(SelectedKeyName=\"TargetActor\")"
+      ]
+    }
+  }
+}

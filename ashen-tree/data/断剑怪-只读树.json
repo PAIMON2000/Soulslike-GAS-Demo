@@ -1,0 +1,2346 @@
+{
+  "controller": "/Game/Gameplay/AI/BP_EnemyAIController.BP_EnemyAIController",
+  "main": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat",
+  "root": {
+    "name": "断剑怪｜局势决策与行动执行",
+    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:TacticalNode117",
+    "kind": "按优先级尝试",
+    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+    "children": [
+      {
+        "name": "一次完整战斗行动",
+        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:TacticalNode116",
+        "kind": "按顺序完成",
+        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+        "children": [
+          {
+            "name": "准备战斗所需数据",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_BTT_DSInit_C_0",
+            "kind": "动作",
+            "explanation": "首次执行时记录怪物半径、速度和单位换算；之后跳过初始化。",
+            "children": [],
+            "parameters": [],
+            "order": 1,
+            "conditions": []
+          },
+          {
+            "name": "① 判断局势｜双击查看所有选招条件",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:TacticalNode114",
+            "kind": "展开内部步骤",
+            "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+            "children": [
+              {
+                "name": "每轮只选择一次；攻击期间不重新抽签",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode64",
+                "kind": "按顺序完成",
+                "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                "children": [
+                  {
+                    "name": "读取距离、方向、血量、冷却",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode62",
+                    "kind": "动作",
+                    "explanation": "测量当前距离、目标相对方向、自身血量与3003冷却，写入共享记录。",
+                    "children": [],
+                    "parameters": [],
+                    "order": 1,
+                    "conditions": []
+                  },
+                  {
+                    "name": "优先级：事件 → 变体 → 职责 → 方向 → 距离",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode57",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "响应事件100：特殊动作20005",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode43",
+                        "kind": "动作",
+                        "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                        "children": [],
+                        "parameters": [
+                          "特殊20005：权重 100"
+                        ],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "事件请求 = 100",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode44",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "110054变体：专用接近",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode45",
+                        "kind": "动作",
+                        "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                        "children": [],
+                        "parameters": [
+                          "变体专用接近：权重 100"
+                        ],
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "变体 = 110054",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode46",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "队伍职责｜旁观或围攻",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode47",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "按队伍职责配合（从左到右）",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode8",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "旁观：后退60 / 侧移40",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode1",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "后退：权重 60",
+                                  "侧移：权重 40"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "旁观角色",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode2",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "围攻远距：前冲20 / 后退50 / 侧移30",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode3",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "前冲攻击：权重 20",
+                                  "后退：权重 50",
+                                  "侧移：权重 30"
+                                ],
+                                "order": 2,
+                                "conditions": [
+                                  {
+                                    "name": "围攻角色",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode4",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≥ 5.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode5",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "围攻近中距：后退50 / 侧移30",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode6",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "后退：权重 50",
+                                  "侧移：权重 30"
+                                ],
+                                "order": 3,
+                                "conditions": [
+                                  {
+                                    "name": "围攻角色",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode7",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole",
+                        "order": 3,
+                        "conditions": [
+                          {
+                            "name": "职责 ≥ 1",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode48",
+                            "kind": "条件"
+                          },
+                          {
+                            "name": "职责 ≤ 2",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode49",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "侧后响应｜无匹配则继续判断",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode50",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "目标在侧后方时的选择",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode23",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "右侧：连击B30 / 冷却攻击15 / 转身55",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode9",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击B：权重 30",
+                                  "3003冷却攻击：权重 15",
+                                  "转身：权重 55"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode10",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "目标右侧 ≥ 45°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode11",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "目标右侧 ≤ 135°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode12",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "左侧：连击A30 / 冷却攻击15 / 转身55",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode13",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 30",
+                                  "3003冷却攻击：权重 15",
+                                  "转身：权重 55"
+                                ],
+                                "order": 2,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode14",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "目标左侧 ≥ -135°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode15",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "目标左侧 ≤ -45°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode16",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "右后方：转身",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode17",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "转身：权重 100"
+                                ],
+                                "order": 3,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≤ 10",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode18",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "偏离正面 ≥ 60°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode19",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "左后方：转身",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode20",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "转身：权重 100"
+                                ],
+                                "order": 4,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≤ 10",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode21",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "偏离正面 ≤ -60°",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode22",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse",
+                        "order": 4,
+                        "conditions": []
+                      },
+                      {
+                        "name": "144041特殊动作",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode51",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "特殊变体：按距离选动作",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode27",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "距离远：特殊动作20005",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode24",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "特殊20005：权重 100"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 13",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode25",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离近：特殊动作20006",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode26",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "特殊20006：权重 100"
+                                ],
+                                "order": 2,
+                                "conditions": []
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance",
+                        "order": 5,
+                        "conditions": [
+                          {
+                            "name": "变体 = 144041",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode52",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "144040低血量特殊动作",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode53",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "特殊变体：按距离选动作",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode27",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "距离远：特殊动作20005",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode24",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "特殊20005：权重 100"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 13",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode25",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离近：特殊动作20006",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode26",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "特殊20006：权重 100"
+                                ],
+                                "order": 2,
+                                "conditions": []
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance",
+                        "order": 6,
+                        "conditions": [
+                          {
+                            "name": "变体 = 144040",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode54",
+                            "kind": "条件"
+                          },
+                          {
+                            "name": "生命比例 ≤ 80%",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode55",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "正面交战｜按距离配置招式候选",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode56",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "正面交战：距离决定候选，不强制唯一出招",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode42",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "144040远距≥10：前冲、连击与特殊动作",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode28",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 15",
+                                  "连击B：权重 10",
+                                  "3003冷却攻击：权重 10",
+                                  "前冲攻击：权重 45",
+                                  "侧移：权重 20",
+                                  "特殊20005：权重 20",
+                                  "特殊20006：权重 10"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "144040变体",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode29",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≥ 10",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode30",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "144040远距：特殊20006权重略高",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode31",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 15",
+                                  "连击B：权重 10",
+                                  "3003冷却攻击：权重 10",
+                                  "前冲攻击：权重 45",
+                                  "侧移：权重 20",
+                                  "特殊20005：权重 10",
+                                  "特殊20006：权重 20"
+                                ],
+                                "order": 2,
+                                "conditions": [
+                                  {
+                                    "name": "144040变体",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode32",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≥ 5.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode33",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "普通远距：前冲45 / 连击A15 B10 / 冷却10 / 侧移20",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode34",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 15",
+                                  "连击B：权重 10",
+                                  "3003冷却攻击：权重 10",
+                                  "前冲攻击：权重 45",
+                                  "侧移：权重 20"
+                                ],
+                                "order": 3,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 5.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode35",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "144040中距：普通候选加特殊20006权重30",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode36",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 20",
+                                  "连击B：权重 20",
+                                  "固定两段：权重 15",
+                                  "3003冷却攻击：权重 35",
+                                  "侧移：权重 10",
+                                  "特殊20006：权重 30"
+                                ],
+                                "order": 4,
+                                "conditions": [
+                                  {
+                                    "name": "144040变体",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode37",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≥ 1.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode38",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "普通中距：连击A20 B20 / 两段15 / 冷却35 / 侧移10",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode39",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 20",
+                                  "连击B：权重 20",
+                                  "固定两段：权重 15",
+                                  "3003冷却攻击：权重 35",
+                                  "侧移：权重 10"
+                                ],
+                                "order": 5,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 1.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode40",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "近距：连击A25 B15 / 两段15 / 冷却攻击45",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode41",
+                                "kind": "动作",
+                                "explanation": "命中这条规则后，使用下面这些候选权重；这一步还没有发动攻击。",
+                                "children": [],
+                                "parameters": [
+                                  "连击A：权重 25",
+                                  "连击B：权重 15",
+                                  "固定两段：权重 15",
+                                  "3003冷却攻击：权重 45"
+                                ],
+                                "order": 6,
+                                "conditions": []
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices",
+                        "order": 7,
+                        "conditions": []
+                      }
+                    ],
+                    "parameters": [],
+                    "order": 2,
+                    "conditions": []
+                  },
+                  {
+                    "name": "独立冷却：只过滤3003，不影响其他攻击",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode61",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "3003未冷却：排除本轮候选",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode58",
+                        "kind": "动作",
+                        "explanation": "把3003对应招式的权重归零，其他候选保留。",
+                        "children": [],
+                        "parameters": [],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "3003距离上次发动 ≤ 20秒",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode59",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "3003已冷却：保留权重",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode60",
+                        "kind": "动作",
+                        "explanation": "等待指定时间，然后返回成功。",
+                        "children": [],
+                        "parameters": [],
+                        "order": 2,
+                        "conditions": []
+                      }
+                    ],
+                    "parameters": [],
+                    "order": 3,
+                    "conditions": []
+                  },
+                  {
+                    "name": "按树上的候选权重抽取一次",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode63",
+                    "kind": "动作",
+                    "explanation": "按剩余权重抽一次，记下本轮行动；攻击中不再重新抽取。",
+                    "children": [],
+                    "parameters": [],
+                    "order": 4,
+                    "conditions": []
+                  }
+                ],
+                "parameters": []
+              }
+            ],
+            "parameters": [],
+            "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules",
+            "order": 2,
+            "conditions": []
+          },
+          {
+            "name": "② 执行已选招式｜连击期间保持本次选择",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_BTComposite_Selector_0",
+            "kind": "按优先级尝试",
+            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+            "children": [
+              {
+                "name": "近身攻击",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_RunMelee",
+                "kind": "展开内部步骤",
+                "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                "children": [
+                  {
+                    "name": "近身攻击",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ReadableRoot",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "连击A",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTComposite_Sequence_0",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTT_DSLocomotion_C_0",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.5"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTTask_MoveTo_0",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_TimeLimit_5",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "一次决定两段或三段连击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ComboLength1",
+                            "kind": "动作",
+                            "explanation": "为本次连击决定是否追加第三击。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 3,
+                            "conditions": []
+                          },
+                          {
+                            "name": "执行攻击3000｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3000"
+                            ],
+                            "order": 4,
+                            "conditions": []
+                          },
+                          {
+                            "name": "执行攻击3001｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_1",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3001"
+                            ],
+                            "order": 5,
+                            "conditions": []
+                          },
+                          {
+                            "name": "是否追加第三击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ThirdChoice1",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "执行攻击3002｜替代动画",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_2",
+                                "kind": "动作",
+                                "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                                "children": [],
+                                "parameters": [
+                                  "攻击编号：3002"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "条件：本轮选择了三段",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_12",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "两段完成｜跳过第三击",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:NoThird1",
+                                "kind": "动作",
+                                "explanation": "等待指定时间，然后返回成功。",
+                                "children": [],
+                                "parameters": [],
+                                "order": 2,
+                                "conditions": []
+                              }
+                            ],
+                            "parameters": [],
+                            "order": 6,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：连击A",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_13",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "连击B",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act2",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode2",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.2"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach2",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_TimeLimit_0",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "一次决定两段或三段连击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ComboLength2",
+                            "kind": "动作",
+                            "explanation": "为本次连击决定是否追加第三击。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 3,
+                            "conditions": []
+                          },
+                          {
+                            "name": "执行攻击3001｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3001"
+                            ],
+                            "order": 4,
+                            "conditions": []
+                          },
+                          {
+                            "name": "执行攻击3002｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_1",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3002"
+                            ],
+                            "order": 5,
+                            "conditions": []
+                          },
+                          {
+                            "name": "是否追加第三击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ThirdChoice2",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "执行攻击3000｜替代动画",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_2",
+                                "kind": "动作",
+                                "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                                "children": [],
+                                "parameters": [
+                                  "攻击编号：3000"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "条件：本轮选择了三段",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_0",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "两段完成｜跳过第三击",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:NoThird2",
+                                "kind": "动作",
+                                "explanation": "等待指定时间，然后返回成功。",
+                                "children": [],
+                                "parameters": [],
+                                "order": 2,
+                                "conditions": []
+                              }
+                            ],
+                            "parameters": [],
+                            "order": 6,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：连击B",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_16",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "固定两段攻击",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act4",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode4",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.5"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach4",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_TimeLimit_6",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "执行攻击3002｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike4_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3002"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          },
+                          {
+                            "name": "执行攻击3001｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike4_1",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3001"
+                            ],
+                            "order": 4,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 3,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：固定两段攻击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_15",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "独立冷却攻击",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act5",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode5",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.0"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach5",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_TimeLimit_4",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "执行攻击3003｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike5_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3003"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 4,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：独立冷却攻击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_11",
+                            "kind": "条件"
+                          }
+                        ]
+                      }
+                    ],
+                    "parameters": []
+                  }
+                ],
+                "parameters": [],
+                "asset": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee",
+                "order": 1,
+                "conditions": []
+              },
+              {
+                "name": "远距攻击",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_RunRanged",
+                "kind": "展开内部步骤",
+                "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                "children": [
+                  {
+                    "name": "远距攻击",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:ReadableRoot",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "远距前冲攻击",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Act6",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Mode6",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：7.2"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Approach6",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:BTDecorator_TimeLimit_3",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "执行攻击3007｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Strike6_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：3007"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：远距前冲攻击",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:BTDecorator_Blackboard_10",
+                            "kind": "条件"
+                          }
+                        ]
+                      }
+                    ],
+                    "parameters": []
+                  }
+                ],
+                "parameters": [],
+                "asset": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged",
+                "order": 2,
+                "conditions": []
+              },
+              {
+                "name": "调整位置与朝向",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_RunSpacing",
+                "kind": "展开内部步骤",
+                "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                "children": [
+                  {
+                    "name": "调整位置与朝向",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:ReadableRoot",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "后退拉开距离",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act11",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode11",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.5"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Approach11",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": []
+                          },
+                          {
+                            "name": "后退｜最多4秒，拉至10单位",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Retreat11",
+                            "kind": "动作",
+                            "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                            "children": [],
+                            "parameters": [
+                              "移动模式：1侧移/2后退/3靠近/4转身：2",
+                              "最长执行秒数：4.0"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：后退拉开距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:BTDecorator_Blackboard_7",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "围绕目标侧移",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act12",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode12",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.5"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "侧移｜最多2秒，保留范围退出",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Relative12",
+                            "kind": "动作",
+                            "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                            "children": [],
+                            "parameters": [
+                              "移动模式：1侧移/2后退/3靠近/4转身：1",
+                              "最长执行秒数：2.0"
+                            ],
+                            "order": 2,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：围绕目标侧移",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:BTDecorator_Blackboard_6",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "转身面向目标",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act13",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode13",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：2.5"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "转身｜最多3秒",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Relative13",
+                            "kind": "动作",
+                            "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                            "children": [],
+                            "parameters": [
+                              "移动模式：1侧移/2后退/3靠近/4转身：4",
+                              "最长执行秒数：3.0"
+                            ],
+                            "order": 2,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 3,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：转身面向目标",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:BTDecorator_Blackboard_5",
+                            "kind": "条件"
+                          }
+                        ]
+                      }
+                    ],
+                    "parameters": []
+                  }
+                ],
+                "parameters": [],
+                "asset": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing",
+                "order": 3,
+                "conditions": []
+              },
+              {
+                "name": "特殊事件与变体",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_RunSpecial",
+                "kind": "展开内部步骤",
+                "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                "children": [
+                  {
+                    "name": "特殊事件与变体",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:ReadableRoot",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "特殊动作20005",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act20",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode20",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：20.0"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach20",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:BTDecorator_TimeLimit_2",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "执行攻击20005｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Strike20_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：20005"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：特殊动作20005",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:BTDecorator_Blackboard_9",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "特殊动作20006",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act21",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode21",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：15.0"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach21",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": [
+                              {
+                                "name": "接近超时｜读取ApproachLife",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:BTDecorator_TimeLimit_1",
+                                "kind": "持续限制"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "执行攻击20006｜替代动画",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Strike21_0",
+                            "kind": "动作",
+                            "explanation": "发动这个攻击，等待结束；尚未结束时，后面的步骤等待。",
+                            "children": [],
+                            "parameters": [
+                              "攻击编号：20006"
+                            ],
+                            "order": 3,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：特殊动作20006",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:BTDecorator_Blackboard_8",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "110054变体专用接近",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act54",
+                        "kind": "按顺序完成",
+                        "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                        "children": [
+                          {
+                            "name": "配置接近速度与目标距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode54",
+                            "kind": "动作",
+                            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+                            "children": [],
+                            "parameters": [
+                              "转向速度（度/秒）：360.0",
+                              "接近目标距离（脚本单位）：1.0"
+                            ],
+                            "order": 1,
+                            "conditions": []
+                          },
+                          {
+                            "name": "寻路接近至本招距离",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach54",
+                            "kind": "动作",
+                            "explanation": "寻路接近目标；到达才继续，失败则向上返回失败。",
+                            "children": [],
+                            "parameters": [],
+                            "order": 2,
+                            "conditions": []
+                          }
+                        ],
+                        "parameters": [],
+                        "order": 3,
+                        "conditions": [
+                          {
+                            "name": "本轮选择：110054变体专用接近",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:BTDecorator_Blackboard_4",
+                            "kind": "条件"
+                          }
+                        ]
+                      }
+                    ],
+                    "parameters": []
+                  }
+                ],
+                "parameters": [],
+                "asset": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special",
+                "order": 4,
+                "conditions": []
+              }
+            ],
+            "parameters": [],
+            "order": 3,
+            "conditions": []
+          },
+          {
+            "name": "④ 恢复步行并朝向目标",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_AfterMode",
+            "kind": "动作",
+            "explanation": "配置走路／跑步、接近距离和转向速度，并朝向目标。",
+            "children": [],
+            "parameters": [
+              "转向速度（度/秒）：360.0",
+              "接近目标距离（脚本单位）：2.5"
+            ],
+            "order": 4,
+            "conditions": []
+          },
+          {
+            "name": "③ 攻击后调整｜双击查看距离与概率条件",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:TacticalNode115",
+            "kind": "展开内部步骤",
+            "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+            "children": [
+              {
+                "name": "攻击后调整：判断与执行分开",
+                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode113",
+                "kind": "按顺序完成",
+                "explanation": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。",
+                "children": [
+                  {
+                    "name": "重新测量当前距离",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode111",
+                    "kind": "动作",
+                    "explanation": "测量当前距离、目标相对方向、自身血量与3003冷却，写入共享记录。",
+                    "children": [],
+                    "parameters": [],
+                    "order": 1,
+                    "conditions": []
+                  },
+                  {
+                    "name": "重置走位并准备本轮随机值",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode112",
+                    "kind": "动作",
+                    "explanation": "清空上一轮走位选择，准备本轮随机值、时长和后退距离。",
+                    "children": [],
+                    "parameters": [],
+                    "order": 2,
+                    "conditions": []
+                  },
+                  {
+                    "name": "本轮是否需要攻击后调整",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode110",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "普通攻击：50%进入距离判断",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode102",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "攻击结束后重新看距离，再选走位",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode101",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "配合队伍：近时后退到8",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode69",
+                                "kind": "动作",
+                                "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                "children": [],
+                                "parameters": [
+                                  "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "职责 ≥ 1",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode70",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "职责 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode71",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≤ 6",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode72",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "配合队伍：远时侧移",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode73",
+                                "kind": "动作",
+                                "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                "children": [],
+                                "parameters": [
+                                  "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                ],
+                                "order": 2,
+                                "conditions": [
+                                  {
+                                    "name": "职责 ≥ 1",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode74",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "职责 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode75",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "远距：25%侧移 / 75%靠近",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode68",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode65",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 25",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode66",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "靠近到5.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode67",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：3"
+                                    ],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 3,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 6",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode76",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离4～6：30%侧移 / 70%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode80",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode77",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 30",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode78",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode79",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 4,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 4.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode81",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离2～4：15%侧移 / 10%后退 / 75%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode87",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode82",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 15",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode83",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode84",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 2,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 25",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode85",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode86",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 3,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 5,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 2.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode88",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离0.5～2：5%侧移 / 15%后退 / 80%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode94",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode89",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 5",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode90",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode91",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 2,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 20",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode92",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode93",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 3,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 6,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 0.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode95",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "贴身：15%后退 / 85%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode99",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode96",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 15",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode97",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode98",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 7,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 0.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode100",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance",
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "行动 ≥ 1",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode103",
+                            "kind": "条件"
+                          },
+                          {
+                            "name": "行动 ≤ 6",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode104",
+                            "kind": "条件"
+                          },
+                          {
+                            "name": "本次随机值 ≤ 50",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode105",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "特殊动作：必定进入距离判断",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode106",
+                        "kind": "展开内部步骤",
+                        "explanation": "这里调用另一棵树，下面已直接展开；完成后回到当前层继续。",
+                        "children": [
+                          {
+                            "name": "攻击结束后重新看距离，再选走位",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode101",
+                            "kind": "按优先级尝试",
+                            "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                            "children": [
+                              {
+                                "name": "配合队伍：近时后退到8",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode69",
+                                "kind": "动作",
+                                "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                "children": [],
+                                "parameters": [
+                                  "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                ],
+                                "order": 1,
+                                "conditions": [
+                                  {
+                                    "name": "职责 ≥ 1",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode70",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "职责 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode71",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "距离 ≤ 6",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode72",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "配合队伍：远时侧移",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode73",
+                                "kind": "动作",
+                                "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                "children": [],
+                                "parameters": [
+                                  "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                ],
+                                "order": 2,
+                                "conditions": [
+                                  {
+                                    "name": "职责 ≥ 1",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode74",
+                                    "kind": "条件"
+                                  },
+                                  {
+                                    "name": "职责 ≤ 2",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode75",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "远距：25%侧移 / 75%靠近",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode68",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode65",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 25",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode66",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "靠近到5.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode67",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：3"
+                                    ],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 3,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 6",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode76",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离4～6：30%侧移 / 70%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode80",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode77",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 30",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode78",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode79",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 4,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 4.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode81",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离2～4：15%侧移 / 10%后退 / 75%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode87",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode82",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 15",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode83",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode84",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 2,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 25",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode85",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode86",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 3,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 5,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 2.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode88",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "距离0.5～2：5%侧移 / 15%后退 / 80%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode94",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "侧移",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode89",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：1"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 5",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode90",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode91",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 2,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 20",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode92",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode93",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 3,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 6,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 0.5",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode95",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "贴身：15%后退 / 85%结束",
+                                "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode99",
+                                "kind": "按优先级尝试",
+                                "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                                "children": [
+                                  {
+                                    "name": "后退",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode96",
+                                    "kind": "动作",
+                                    "explanation": "记录此分支决定的走位方式，交给后续移动节点执行。",
+                                    "children": [],
+                                    "parameters": [
+                                      "移动模式：1侧移/2后退/3靠近/4转身：2"
+                                    ],
+                                    "order": 1,
+                                    "conditions": [
+                                      {
+                                        "name": "随机值 ≤ 15",
+                                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode97",
+                                        "kind": "条件"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "不追加走位",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode98",
+                                    "kind": "动作",
+                                    "explanation": "等待指定时间，然后返回成功。",
+                                    "children": [],
+                                    "parameters": [],
+                                    "order": 2,
+                                    "conditions": []
+                                  }
+                                ],
+                                "parameters": [],
+                                "order": 7,
+                                "conditions": [
+                                  {
+                                    "name": "距离 ≥ 0.0",
+                                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode100",
+                                    "kind": "条件"
+                                  }
+                                ]
+                              }
+                            ],
+                            "parameters": []
+                          }
+                        ],
+                        "parameters": [],
+                        "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance",
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "行动 ≥ 20",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode107",
+                            "kind": "条件"
+                          },
+                          {
+                            "name": "行动 ≤ 21",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode108",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "移动行动或未命中概率：结束本轮",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:TacticalNode109",
+                        "kind": "动作",
+                        "explanation": "等待指定时间，然后返回成功。",
+                        "children": [],
+                        "parameters": [],
+                        "order": 3,
+                        "conditions": []
+                      }
+                    ],
+                    "parameters": [],
+                    "order": 3,
+                    "conditions": []
+                  },
+                  {
+                    "name": "⑥ 调整距离或结束本轮",
+                    "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterDispatch",
+                    "kind": "按优先级尝试",
+                    "explanation": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。",
+                    "children": [
+                      {
+                        "name": "攻击后侧移",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                        "kind": "动作",
+                        "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                        "children": [],
+                        "parameters": [
+                          "移动模式：1侧移/2后退/3靠近/4转身：1",
+                          "最长执行秒数：2.0"
+                        ],
+                        "order": 1,
+                        "conditions": [
+                          {
+                            "name": "条件：攻击后侧移",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_BTDecorator_Blackboard_3",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "攻击后后退",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterBack",
+                        "kind": "动作",
+                        "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                        "children": [],
+                        "parameters": [
+                          "移动模式：1侧移/2后退/3靠近/4转身：2",
+                          "最长执行秒数：2.0"
+                        ],
+                        "order": 2,
+                        "conditions": [
+                          {
+                            "name": "条件：攻击后后退",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_BTDecorator_Blackboard_2",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "攻击后靠近",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterApproach",
+                        "kind": "动作",
+                        "explanation": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。",
+                        "children": [],
+                        "parameters": [
+                          "移动模式：1侧移/2后退/3靠近/4转身：3",
+                          "最长执行秒数：2.0"
+                        ],
+                        "order": 3,
+                        "conditions": [
+                          {
+                            "name": "条件：攻击后靠近",
+                            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_BTDecorator_Blackboard_1",
+                            "kind": "条件"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "不追加走位｜立即结束本轮",
+                        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_NoAfterMove",
+                        "kind": "动作",
+                        "explanation": "等待指定时间，然后返回成功。",
+                        "children": [],
+                        "parameters": [],
+                        "order": 4,
+                        "conditions": []
+                      }
+                    ],
+                    "parameters": [],
+                    "order": 4,
+                    "conditions": []
+                  }
+                ],
+                "parameters": []
+              }
+            ],
+            "parameters": [],
+            "asset": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack",
+            "order": 5,
+            "conditions": []
+          }
+        ],
+        "parameters": [],
+        "order": 1,
+        "conditions": [
+          {
+            "name": "条件：目标有效｜失效时中止",
+            "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_BTDecorator_Blackboard_14",
+            "kind": "条件"
+          }
+        ]
+      },
+      {
+        "name": "无目标｜等待0.2秒后重查",
+        "path": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat:Preserved_NoTarget",
+        "kind": "动作",
+        "explanation": "等待指定时间，然后返回成功。",
+        "children": [],
+        "parameters": [],
+        "order": 2,
+        "conditions": []
+      }
+    ],
+    "parameters": []
+  }
+}

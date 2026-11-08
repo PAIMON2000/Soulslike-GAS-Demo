@@ -82,7 +82,7 @@ fallback=g.bbset('Int','Action',previous,13,out='else');finish(g,fallback)
 g.finish('110050 decision once per action cycle. Source ordinary/side-back priorities, team roles, event/ThinkParam variants, 3003-only 20s gate. ForcedAction=0 normally. Never selects on Tick.')
 
 # Configure native locomotion once at action entry; native CharacterMovement turns.
-variables=[('BaseRange','real',2.5),('RunOffset','real',.7),('RunChance','int',100),('ForceRunOffset','real',2.5),('WalkSpeed','real',120.0),('TurnRate','real',180.0),('AlwaysWalk','bool',False)]
+variables=[('BaseRange','real',2.5),('RunOffset','real',.7),('RunChance','int',100),('ForceRunOffset','real',2.5),('WalkSpeed','real',120.0),('TurnRate','real',360.0),('AlwaysWalk','bool',False)]
 g=Graph('BTT_DSLocomotion',variables,['ReceiveExecuteAI']);e=g.events['ReceiveExecuteAI'];d,pl,tl,target=distance(g,e)
 scale=g.bbget('Float','UnitScale');r=g.calc('Multiply_DoubleDouble',g.get('BaseRange'),'BaseRange',scale);r=g.calc('Subtract_DoubleDouble',r,b=g.bbget('Float','RadiusCm'));tail=g.bbset('Float','ApproachRadius',e,source=(r,'ReturnValue'))
 runstart=g.calc('Add_DoubleDouble',g.get('BaseRange'),'BaseRange',g.get('RunOffset'),'RunOffset');runstart=g.calc('Multiply_DoubleDouble',runstart,b=scale);runstart=g.calc('Subtract_DoubleDouble',runstart,b=g.bbget('Float','RadiusCm'));far=g.calc('GreaterEqual_DoubleDouble',d,b=runstart)

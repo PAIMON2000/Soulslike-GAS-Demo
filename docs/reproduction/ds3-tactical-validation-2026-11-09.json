@@ -1,0 +1,450 @@
+{
+  "date": "2026-11-09",
+  "passed": true,
+  "main": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat",
+  "structural": {
+    "passed": true,
+    "decision_boundary_cases": 5544,
+    "recovery_cases": 3300,
+    "main": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat",
+    "tree_paths": [
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.BT_BrokenSword_Combat",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing",
+      "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack",
+      "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance"
+    ],
+    "legacy_decision_tasks_used": false
+  },
+  "actions": {
+    "passed": true,
+    "actions": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      11,
+      12,
+      13,
+      20,
+      21,
+      54
+    ]
+  },
+  "runtime": {
+    "passed": true,
+    "tests": [
+      {
+        "name": "weights_far",
+        "passed": true,
+        "expected": {
+          "1": 15,
+          "2": 10,
+          "4": 0,
+          "5": 10,
+          "6": 45,
+          "12": 20
+        },
+        "actual": {
+          "1": 15.0,
+          "2": 10.0,
+          "4": 0.0,
+          "5": 10.0,
+          "6": 45.0,
+          "12": 20.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_mid",
+        "passed": true,
+        "expected": {
+          "1": 20,
+          "2": 20,
+          "4": 15,
+          "5": 35,
+          "6": 0,
+          "12": 10
+        },
+        "actual": {
+          "1": 20.0,
+          "2": 20.0,
+          "4": 15.0,
+          "5": 35.0,
+          "6": 0.0,
+          "12": 10.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_near",
+        "passed": true,
+        "expected": {
+          "1": 25,
+          "2": 15,
+          "4": 15,
+          "5": 45,
+          "6": 0,
+          "12": 0
+        },
+        "actual": {
+          "1": 25.0,
+          "2": 15.0,
+          "4": 15.0,
+          "5": 45.0,
+          "6": 0.0,
+          "12": 0.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_3003_cooldown",
+        "passed": true,
+        "expected": {
+          "1": 20,
+          "2": 20,
+          "4": 15,
+          "5": 0,
+          "6": 0,
+          "12": 10
+        },
+        "actual": {
+          "1": 20.0,
+          "2": 20.0,
+          "4": 15.0,
+          "5": 0.0,
+          "6": 0.0,
+          "12": 10.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_right",
+        "passed": true,
+        "expected": {
+          "1": 0,
+          "2": 30,
+          "5": 15,
+          "13": 55
+        },
+        "actual": {
+          "1": 0.0,
+          "2": 30.0,
+          "5": 15.0,
+          "13": 55.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_behind",
+        "passed": true,
+        "expected": {
+          "1": 0,
+          "5": 0,
+          "13": 100
+        },
+        "actual": {
+          "1": 0.0,
+          "5": 0.0,
+          "13": 100.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_spectator",
+        "passed": true,
+        "expected": {
+          "11": 60,
+          "12": 40
+        },
+        "actual": {
+          "11": 60.0,
+          "12": 40.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_encircle",
+        "passed": true,
+        "expected": {
+          "6": 20,
+          "11": 50,
+          "12": 30
+        },
+        "actual": {
+          "6": 20.0,
+          "11": 50.0,
+          "12": 30.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_event",
+        "passed": true,
+        "expected": {
+          "20": 100
+        },
+        "actual": {
+          "20": 100.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_special144041",
+        "passed": true,
+        "expected": {
+          "20": 100
+        },
+        "actual": {
+          "20": 100.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_special144040_weights",
+        "passed": true,
+        "expected": {
+          "20": 10,
+          "21": 20,
+          "6": 45
+        },
+        "actual": {
+          "20": 10.0,
+          "21": 20.0,
+          "6": 45.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_left",
+        "passed": true,
+        "expected": {
+          "1": 30,
+          "2": 0,
+          "5": 15,
+          "13": 55
+        },
+        "actual": {
+          "1": 30.0,
+          "2": 0.0,
+          "5": 15.0,
+          "13": 55.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_variant_approach",
+        "passed": true,
+        "expected": {
+          "54": 100,
+          "1": 0,
+          "13": 0
+        },
+        "actual": {
+          "54": 100.0,
+          "1": 0.0,
+          "13": 0.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "weights_encircle_near",
+        "passed": true,
+        "expected": {
+          "6": 0,
+          "11": 50,
+          "12": 30
+        },
+        "actual": {
+          "6": 0.0,
+          "11": 50.0,
+          "12": 30.0
+        },
+        "runtime_tree": "BT_BrokenSword_Combat"
+      },
+      {
+        "name": "approach_then_committed_combo",
+        "passed": true,
+        "attack_ids": [
+          3000,
+          3001,
+          3002
+        ],
+        "first_attack_min_distance": 155.434814453125,
+        "max_speed": 300.0
+      },
+      {
+        "name": "sideway_moves_and_holds_distance",
+        "passed": true,
+        "lateral": 149.7180118005459,
+        "distance_min": 387.2240295410156,
+        "distance_max": 450.0
+      },
+      {
+        "name": "retreat_is_executed",
+        "passed": true,
+        "distance": 409.8861999511719
+      },
+      {
+        "name": "long_action_uses_distinct_approach_and_advance",
+        "passed": true,
+        "start": {
+          "distance": 684.5952758789062,
+          "time": 1.3330835029482841
+        },
+        "min_distance": 124.59185791015625
+      },
+      {
+        "name": "stop_tree_cancels_attack_and_movement",
+        "passed": true,
+        "active": false,
+        "speed": 0.0
+      },
+      {
+        "name": "invalid_target_cancels_navigation",
+        "passed": true,
+        "speed": 0.0
+      }
+    ]
+  },
+  "natural_selection": [
+    {
+      "name": "draw_mid",
+      "passed": true,
+      "samples": 120,
+      "counts": {
+        "5": 43,
+        "12": 14,
+        "1": 23,
+        "2": 27,
+        "4": 13
+      },
+      "expected": {
+        "1": 0.2,
+        "2": 0.2,
+        "4": 0.15,
+        "5": 0.35,
+        "12": 0.1
+      }
+    },
+    {
+      "name": "draw_cooldown",
+      "passed": true,
+      "samples": 120,
+      "counts": {
+        "1": 45,
+        "4": 24,
+        "12": 19,
+        "2": 32
+      },
+      "expected": {
+        "1": 0.3076923076923077,
+        "2": 0.3076923076923077,
+        "4": 0.23076923076923078,
+        "12": 0.15384615384615385
+      }
+    },
+    {
+      "name": "event_single_candidate",
+      "passed": true,
+      "samples": 120,
+      "counts": {
+        "20": 120
+      },
+      "expected": {
+        "20": 1
+      }
+    },
+    {
+      "name": "variant_single_candidate",
+      "passed": true,
+      "samples": 120,
+      "counts": {
+        "54": 120
+      },
+      "expected": {
+        "54": 1
+      }
+    }
+  ],
+  "recovery": {
+    "passed": true,
+    "tests": [
+      {
+        "name": "recovery_normal_mid",
+        "passed": true,
+        "samples": 40,
+        "counts": {
+          "2": 5,
+          "0": 30,
+          "1": 5
+        },
+        "expected": {
+          "0": 0.875,
+          "1": 0.075,
+          "2": 0.05
+        }
+      },
+      {
+        "name": "recovery_special_far",
+        "passed": true,
+        "samples": 40,
+        "counts": {
+          "3": 28,
+          "1": 12
+        },
+        "expected": {
+          "1": 0.25,
+          "3": 0.75
+        }
+      },
+      {
+        "name": "recovery_movement_skips",
+        "passed": true,
+        "samples": 40,
+        "counts": {
+          "0": 40
+        },
+        "expected": {
+          "0": 1
+        }
+      },
+      {
+        "name": "recovery_team_special",
+        "passed": true,
+        "samples": 40,
+        "counts": {
+          "2": 40
+        },
+        "expected": {
+          "2": 1
+        }
+      }
+    ],
+    "error": null
+  },
+  "saved_reload": {
+    "passed": true,
+    "independent_process": true
+  },
+  "retired_main": {
+    "path": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_CombatOverview",
+    "backup": "..\\..\\..\\..\\UE5.8Project\\ProjectUnreal\\LocalBackups\\Tactical-2026-11-09\\BT_DS3_CombatOverview.uasset",
+    "referencers": []
+  },
+  "sampling_correction": "Initial recovery probe sampled reset values before nested subtree completion. Superseded by one-shot wrapper and delayed observation; original draw tests remain valid.",
+  "limitations": [
+    "First playable architecture version, not production combat tuning.",
+    "Existing animations, movement and special effects remain project proxies.",
+    "Old execution Blueprint comments still produce pre-existing missing NodeGuid warnings; six new task comment IDs were repaired after reload.",
+    "No packaging/performance/multiplayer certification."
+  ]
+}

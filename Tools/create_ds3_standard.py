@@ -3,6 +3,10 @@
 Copies serialized configuration through Unreal's public reflected properties.
 Graph creation is restricted to newly created packages. Existing assets are read
 only. Binding the controller is a separate, reversible editor operation.
+
+Historical one-time builder: the source tree was removed on 2026-11-09 at the
+user's request. Daily validation uses verify_export_ds3_standard.py and its saved
+reference JSON; do not restore retired trees just to run this builder.
 """
 import ctypes,json,re
 from pathlib import Path
@@ -11,6 +15,7 @@ import unreal
 P=Path(unreal.Paths.project_dir());OUT=P/'Saved/DS3-Standard';OUT.mkdir(parents=True,exist_ok=True)
 AI='/Game/Gameplay/AI/DS3BrokenSword/'
 DEST=AI+'StandardReadable/'
+assert unreal.EditorAssetLibrary.does_asset_exist(AI+'BT_DS3BrokenSword'), 'Historical source retired; use verify_export_ds3_standard.py for the current tree'
 source=unreal.load_asset(AI+'BT_DS3BrokenSword');assert source
 assert not unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_game_world()
 lib=unreal.EditorAssetLibrary;tools=unreal.AssetToolsHelpers.get_asset_tools()

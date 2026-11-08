@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-09",
+  "removed": [
+    {
+      "asset": "/Game/Gameplay/AI/BT_Enemy",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/BT_Enemy.uasset",
+      "sha256": "08ed00abf7b4ae22d16f89a148f5d7cf13cab1d76a675dd86e0ad2f0dad5a9e4"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/Archive/BeforeDS3BrokenSword/BT_EnemyMeleeCombat",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/Archive/BeforeDS3BrokenSword/BT_EnemyMeleeCombat.uasset",
+      "sha256": "13f6a58cf2defbeba302ce8367c238410777d6db3c4c13936fa86cd3089fddaa"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/Archive/BeforeDS3BrokenSword/BT_EnemyMeleeCombat_V2",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/Archive/BeforeDS3BrokenSword/BT_EnemyMeleeCombat_V2.uasset",
+      "sha256": "eabc4fa8b1a0adb170fae9d085075d50edbb98eb09b7d7e1fa8c973cd21930e2"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/DS3BrokenSword/BT_DS3BrokenSword",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/DS3BrokenSword/BT_DS3BrokenSword.uasset",
+      "sha256": "cb742e93a654c2884f38e8b4f1d43ee454cdffa579f811eb409c2a9849135c3f"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/DS3BrokenSword/Readable/BT_DS3_Melee",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/DS3BrokenSword/Readable/BT_DS3_Melee.uasset",
+      "sha256": "642939f4fcb60b6eb53bef91cf2f93f9a4add76913113fcfbc0fd6312e842455"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/DS3BrokenSword/ReadableStandard/BT_DS3_Melee",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/DS3BrokenSword/ReadableStandard/BT_DS3_Melee.uasset",
+      "sha256": "473ea887fa92f54bd9cac5bec86f1a0c8e9c1474e788e990ea739c9734a7a000"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/DS3BrokenSword/Standard/BT_DS3Melee",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/DS3BrokenSword/Standard/BT_DS3Melee.uasset",
+      "sha256": "0f33100ea342357f4016a2f8797b69530612a0fc75c9ed4f981c0a964e5c8962"
+    },
+    {
+      "asset": "/Game/Gameplay/AI/DS3BrokenSword/Standard/BT_DS3Ranged",
+      "backup": "LocalBackups/RemovedBehaviorTrees-2026-11-09/Gameplay/AI/DS3BrokenSword/Standard/BT_DS3Ranged.uasset",
+      "sha256": "fd2fd25edaa772a034d9b110bf3744012d67792c41fb2f6c621c3e4c71d9c720"
+    }
+  ],
+  "active_tree": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_CombatOverview.BT_DS3_CombatOverview",
+  "deleted_count": 8,
+  "active_binding_preserved": true
+}
