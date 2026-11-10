@@ -1,0 +1,3485 @@
+{
+  "title": "断剑怪 · 策划阅读树",
+  "status": "本地设计副本，尚未接入UE",
+  "root": {
+    "id": "n372",
+    "name": "断剑怪：持续观察玩家并行动",
+    "kind": "每轮循环",
+    "children": [
+      {
+        "id": "n371",
+        "name": "玩家目标是否仍然有效？",
+        "kind": "如果 / 否则",
+        "children": [
+          {
+            "id": "n364",
+            "name": "目标对象有效",
+            "kind": "条件",
+            "children": [],
+            "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+          },
+          {
+            "id": "n369",
+            "name": "是：执行一轮战斗",
+            "kind": "持续检查目标",
+            "children": [
+              {
+                "id": "n368",
+                "name": "依次完成",
+                "kind": "顺序",
+                "children": [
+                  {
+                    "id": "n365",
+                    "name": "首次准备移动速度、半径和距离换算",
+                    "kind": "动作",
+                    "children": [],
+                    "detail": "初始化后跳过重复设置。"
+                  },
+                  {
+                    "id": "n366",
+                    "name": "读取玩家间距、方向、自身血量和冷却",
+                    "kind": "动作",
+                    "children": [],
+                    "detail": "只测量数据。具体行动在下面各分支中确定。"
+                  },
+                  {
+                    "id": "n367",
+                    "name": "从上到下检查：第一条满足条件的分支执行一轮",
+                    "kind": "子树",
+                    "children": [],
+                    "ref": "rules",
+                    "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                  }
+                ]
+              }
+            ],
+            "detail": "目标失效时中止本轮。具体任务是否正确取消移动、动画和技能，需UE验证。"
+          },
+          {
+            "id": "n370",
+            "name": "否：等待0.2秒，再从顶部检查",
+            "kind": "动作",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "detail": "RUNNING继续当前步骤；本轮结束后，下次调度从顶部重新开始。普通配置按方向和间距进入攻击或走位，攻击前可先接近，攻击后可能再调整距离。"
+  },
+  "subtrees": {
+    "spacing": {
+      "id": "n61",
+      "name": "攻击结束后，根据新间距决定走位",
+      "kind": "选择",
+      "children": [
+        {
+          "id": "n6",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n3",
+              "name": "队伍职责是旁观或围攻",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode70",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n4",
+              "name": "队伍职责属于这两种配合角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode71",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n5",
+              "name": "间距 ≤ 6",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode72",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n2",
+              "name": "配合队伍：近时后退到8",
+              "kind": "顺序",
+              "children": [
+                {
+                  "id": "n1",
+                  "name": "攻击后后退",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterBack",
+                  "parameters": [
+                    "移动模式：1侧移/2后退/3靠近/4转身：2",
+                    "最长执行秒数：2.0"
+                  ],
+                  "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode69",
+              "parameters": [
+                "移动模式：1侧移/2后退/3靠近/4转身：2"
+              ],
+              "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+            }
+          ]
+        },
+        {
+          "id": "n11",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n9",
+              "name": "队伍职责是旁观或围攻",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode74",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n10",
+              "name": "队伍职责属于这两种配合角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode75",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n8",
+              "name": "配合队伍：远时侧移",
+              "kind": "顺序",
+              "children": [
+                {
+                  "id": "n7",
+                  "name": "攻击后侧移",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                  "parameters": [
+                    "移动模式：1侧移/2后退/3靠近/4转身：1",
+                    "最长执行秒数：2.0"
+                  ],
+                  "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode73",
+              "parameters": [
+                "移动模式：1侧移/2后退/3靠近/4转身：1"
+              ],
+              "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+            }
+          ]
+        },
+        {
+          "id": "n20",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n19",
+              "name": "间距 ≥ 6",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode76",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n18",
+              "name": "远距：25%侧移 / 75%靠近",
+              "kind": "选择",
+              "children": [
+                {
+                  "id": "n15",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n14",
+                      "name": "随机值 ≤ 25",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode66",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n13",
+                      "name": "侧移",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n12",
+                          "name": "攻击后侧移",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：1",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode65",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：1"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n17",
+                  "name": "靠近到5.5",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n16",
+                      "name": "攻击后靠近",
+                      "kind": "动作",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterApproach",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：3",
+                        "最长执行秒数：2.0"
+                      ],
+                      "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                    }
+                  ],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode67",
+                  "parameters": [
+                    "移动模式：1侧移/2后退/3靠近/4转身：3"
+                  ],
+                  "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode68",
+              "parameters": [],
+              "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+            }
+          ]
+        },
+        {
+          "id": "n28",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n27",
+              "name": "间距 ≥ 4.0",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode81",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n26",
+              "name": "间距4～6：30%侧移 / 70%结束",
+              "kind": "选择",
+              "children": [
+                {
+                  "id": "n24",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n23",
+                      "name": "随机值 ≤ 30",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode78",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n22",
+                      "name": "侧移",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n21",
+                          "name": "攻击后侧移",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：1",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode77",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：1"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n25",
+                  "name": "不追加走位",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode79",
+                  "parameters": [],
+                  "detail": "等待指定时间，然后返回成功。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode80",
+              "parameters": [],
+              "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+            }
+          ]
+        },
+        {
+          "id": "n40",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n39",
+              "name": "间距 ≥ 2.0",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode88",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n38",
+              "name": "间距2～4：15%侧移 / 10%后退 / 75%结束",
+              "kind": "选择",
+              "children": [
+                {
+                  "id": "n32",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n31",
+                      "name": "随机值 ≤ 15",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode83",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n30",
+                      "name": "侧移",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n29",
+                          "name": "攻击后侧移",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：1",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode82",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：1"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n36",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n35",
+                      "name": "随机值 ≤ 25",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode85",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n34",
+                      "name": "后退",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n33",
+                          "name": "攻击后后退",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterBack",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：2",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode84",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：2"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n37",
+                  "name": "不追加走位",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode86",
+                  "parameters": [],
+                  "detail": "等待指定时间，然后返回成功。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode87",
+              "parameters": [],
+              "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+            }
+          ]
+        },
+        {
+          "id": "n52",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n51",
+              "name": "间距 ≥ 0.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode95",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n50",
+              "name": "间距0.5～2：5%侧移 / 15%后退 / 80%结束",
+              "kind": "选择",
+              "children": [
+                {
+                  "id": "n44",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n43",
+                      "name": "随机值 ≤ 5",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode90",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n42",
+                      "name": "侧移",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n41",
+                          "name": "攻击后侧移",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterSide",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：1",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode89",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：1"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n48",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n47",
+                      "name": "随机值 ≤ 20",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode92",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n46",
+                      "name": "后退",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n45",
+                          "name": "攻击后后退",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterBack",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：2",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode91",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：2"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n49",
+                  "name": "不追加走位",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode93",
+                  "parameters": [],
+                  "detail": "等待指定时间，然后返回成功。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode94",
+              "parameters": [],
+              "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+            }
+          ]
+        },
+        {
+          "id": "n60",
+          "name": "满足以下条件才执行",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n59",
+              "name": "间距 ≥ 0.0",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode100",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n58",
+              "name": "贴身：15%后退 / 85%结束",
+              "kind": "选择",
+              "children": [
+                {
+                  "id": "n56",
+                  "name": "满足以下条件才执行",
+                  "kind": "顺序",
+                  "children": [
+                    {
+                      "id": "n55",
+                      "name": "随机值 ≤ 15",
+                      "kind": "条件",
+                      "children": [],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode97",
+                      "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                    },
+                    {
+                      "id": "n54",
+                      "name": "后退",
+                      "kind": "顺序",
+                      "children": [
+                        {
+                          "id": "n53",
+                          "name": "攻击后后退",
+                          "kind": "动作",
+                          "children": [],
+                          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.BT_AfterAttack:Preserved_AfterBack",
+                          "parameters": [
+                            "移动模式：1侧移/2后退/3靠近/4转身：2",
+                            "最长执行秒数：2.0"
+                          ],
+                          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+                        }
+                      ],
+                      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode96",
+                      "parameters": [
+                        "移动模式：1侧移/2后退/3靠近/4转身：2"
+                      ],
+                      "detail": "满足本分支条件后直接执行移动，成功或失败结束本次调整。"
+                    }
+                  ]
+                },
+                {
+                  "id": "n57",
+                  "name": "不追加走位",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode98",
+                  "parameters": [],
+                  "detail": "等待指定时间，然后返回成功。"
+                }
+              ],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode99",
+              "parameters": [],
+              "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+            }
+          ]
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.BT_RecoveryDistance:TacticalNode101",
+      "parameters": [],
+      "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+    },
+    "recover": {
+      "id": "n69",
+      "name": "常规攻击结束后：可能走位，也可能直接结束",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n62",
+          "name": "重新测量与玩家的间距",
+          "kind": "动作",
+          "children": []
+        },
+        {
+          "id": "n63",
+          "name": "生成一次恢复判断所需的随机值",
+          "kind": "动作",
+          "children": [],
+          "detail": "原资料区分进入调整与走位随机值，但生成方式、独立性未完整导出。需核对UE任务后才能验证联合概率。"
+        },
+        {
+          "id": "n68",
+          "name": "是否进入走位判断",
+          "kind": "选择",
+          "children": [
+            {
+              "id": "n66",
+              "name": "抽中恢复调整时",
+              "kind": "顺序",
+              "children": [
+                {
+                  "id": "n64",
+                  "name": "本次随机值 ≤ 50",
+                  "kind": "条件",
+                  "children": [],
+                  "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                },
+                {
+                  "id": "n65",
+                  "name": "攻击结束后，根据新间距决定走位",
+                  "kind": "子树",
+                  "children": [],
+                  "ref": "spacing",
+                  "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                }
+              ]
+            },
+            {
+              "id": "n67",
+              "name": "否则直接结束本轮",
+              "kind": "成功",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "specialRecover": {
+      "id": "n72",
+      "name": "替代招式结束后：进入走位判断",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n70",
+          "name": "重新测量间距并生成一次走位随机值",
+          "kind": "动作",
+          "children": []
+        },
+        {
+          "id": "n71",
+          "name": "攻击结束后，根据新间距决定走位",
+          "kind": "子树",
+          "children": [],
+          "ref": "spacing",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ]
+    },
+    "连击A": {
+      "id": "n84",
+      "name": "连续挥砍A",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n73",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTT_DSLocomotion_C_0",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.5"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n75",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n74",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTTask_MoveTo_0",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n76",
+          "name": "本轮连击只抽一次段数",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ComboLength1",
+          "parameters": [],
+          "detail": "现有行为说明记载：25%两段，75%三段。不会每个Tick重新抽签。仍需对照运行资产确认。"
+        },
+        {
+          "id": "n77",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_0",
+          "parameters": [
+            "原动作编号 3000",
+            "攻击编号：3000"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n78",
+          "name": "第2击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_1",
+          "parameters": [
+            "原动作编号 3001",
+            "攻击编号：3001"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n83",
+          "name": "是否追加第三击",
+          "kind": "选择",
+          "children": [
+            {
+              "id": "n81",
+              "name": "满足以下条件才执行",
+              "kind": "顺序",
+              "children": [
+                {
+                  "id": "n80",
+                  "name": "条件：本轮连击抽中了三段",
+                  "kind": "条件",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_12",
+                  "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                },
+                {
+                  "id": "n79",
+                  "name": "第3击：播放攻击并等待结束",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike1_2",
+                  "parameters": [
+                    "原动作编号 3002",
+                    "攻击编号：3002"
+                  ],
+                  "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+                }
+              ]
+            },
+            {
+              "id": "n82",
+              "name": "两段完成｜跳过第三击",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:NoThird1",
+              "parameters": [],
+              "detail": "等待指定时间，然后返回成功。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ThirdChoice1",
+          "parameters": [],
+          "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+        },
+        {
+          "id": "n85",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n86",
+          "name": "常规攻击结束后：可能走位，也可能直接结束",
+          "kind": "子树",
+          "children": [],
+          "ref": "recover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTComposite_Sequence_0",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "连击B": {
+      "id": "n98",
+      "name": "连续挥砍B",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n87",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode2",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.2"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n89",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n88",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach2",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n90",
+          "name": "本轮连击只抽一次段数",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ComboLength2",
+          "parameters": [],
+          "detail": "现有行为说明记载：25%两段，75%三段。不会每个Tick重新抽签。仍需对照运行资产确认。"
+        },
+        {
+          "id": "n91",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_0",
+          "parameters": [
+            "原动作编号 3001",
+            "攻击编号：3001"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n92",
+          "name": "第2击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_1",
+          "parameters": [
+            "原动作编号 3002",
+            "攻击编号：3002"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n97",
+          "name": "是否追加第三击",
+          "kind": "选择",
+          "children": [
+            {
+              "id": "n95",
+              "name": "满足以下条件才执行",
+              "kind": "顺序",
+              "children": [
+                {
+                  "id": "n94",
+                  "name": "条件：本轮连击抽中了三段",
+                  "kind": "条件",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:BTDecorator_Blackboard_0",
+                  "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+                },
+                {
+                  "id": "n93",
+                  "name": "第3击：播放攻击并等待结束",
+                  "kind": "动作",
+                  "children": [],
+                  "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike2_2",
+                  "parameters": [
+                    "原动作编号 3000",
+                    "攻击编号：3000"
+                  ],
+                  "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+                }
+              ]
+            },
+            {
+              "id": "n96",
+              "name": "两段完成｜跳过第三击",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:NoThird2",
+              "parameters": [],
+              "detail": "等待指定时间，然后返回成功。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:ThirdChoice2",
+          "parameters": [],
+          "detail": "按编号依次尝试；失败才看下一个，成功即结束本组，正在运行则等待。"
+        },
+        {
+          "id": "n99",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n100",
+          "name": "常规攻击结束后：可能走位，也可能直接结束",
+          "kind": "子树",
+          "children": [],
+          "ref": "recover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act2",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "固定两段": {
+      "id": "n106",
+      "name": "固定两次挥砍",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n101",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode4",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.5"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n103",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n102",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach4",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n104",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike4_0",
+          "parameters": [
+            "原动作编号 3002",
+            "攻击编号：3002"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n105",
+          "name": "第2击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike4_1",
+          "parameters": [
+            "原动作编号 3001",
+            "攻击编号：3001"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n107",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n108",
+          "name": "常规攻击结束后：可能走位，也可能直接结束",
+          "kind": "子树",
+          "children": [],
+          "ref": "recover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act4",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "3003冷却攻击": {
+      "id": "n113",
+      "name": "带独立冷却的单次攻击",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n109",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Mode5",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.0"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n111",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n110",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Approach5",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n112",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Strike5_0",
+          "parameters": [
+            "原动作编号 3003",
+            "攻击编号：3003"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n114",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n115",
+          "name": "常规攻击结束后：可能走位，也可能直接结束",
+          "kind": "子树",
+          "children": [],
+          "ref": "recover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.BT_DS3_Melee:Act5",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "前冲攻击": {
+      "id": "n120",
+      "name": "向前冲刺攻击",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n116",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Mode6",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：7.2"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n118",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n117",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Approach6",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n119",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Strike6_0",
+          "parameters": [
+            "原动作编号 3007",
+            "攻击编号：3007"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n121",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n122",
+          "name": "常规攻击结束后：可能走位，也可能直接结束",
+          "kind": "子树",
+          "children": [],
+          "ref": "recover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.BT_DS3_Ranged:Act6",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "后退": {
+      "id": "n126",
+      "name": "后退拉开距离",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n123",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode11",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.5"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n124",
+          "name": "沿可走路径靠近玩家，直到达到本招间距",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Approach11",
+          "parameters": [],
+          "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+        },
+        {
+          "id": "n125",
+          "name": "后退｜最多4秒，拉至10单位",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Retreat11",
+          "parameters": [
+            "移动模式：1侧移/2后退/3靠近/4转身：2",
+            "最长执行秒数：4.0"
+          ],
+          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+        },
+        {
+          "id": "n127",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n128",
+          "name": "本轮结束，下一轮重新检查",
+          "kind": "成功",
+          "children": []
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act11",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "侧移": {
+      "id": "n131",
+      "name": "绕着玩家侧移",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n129",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode12",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.5"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n130",
+          "name": "侧移｜最多2秒，保留范围退出",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Relative12",
+          "parameters": [
+            "移动模式：1侧移/2后退/3靠近/4转身：1",
+            "最长执行秒数：2.0"
+          ],
+          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+        },
+        {
+          "id": "n132",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n133",
+          "name": "本轮结束，下一轮重新检查",
+          "kind": "成功",
+          "children": []
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act12",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "转身": {
+      "id": "n136",
+      "name": "转身面向玩家",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n134",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Mode13",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：2.5"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n135",
+          "name": "转身｜最多3秒",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Relative13",
+          "parameters": [
+            "移动模式：1侧移/2后退/3靠近/4转身：4",
+            "最长执行秒数：3.0"
+          ],
+          "detail": "执行侧移、后退、靠近或转身，直到完成、超时或被中止。"
+        },
+        {
+          "id": "n137",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n138",
+          "name": "本轮结束，下一轮重新检查",
+          "kind": "成功",
+          "children": []
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.BT_DS3_Spacing:Act13",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "特殊20005": {
+      "id": "n143",
+      "name": "替代招式甲（原效果待核实）",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n139",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode20",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：20.0"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n141",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n140",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach20",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n142",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Strike20_0",
+          "parameters": [
+            "原动作编号 20005",
+            "攻击编号：20005"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n144",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n145",
+          "name": "替代招式结束后：进入走位判断",
+          "kind": "子树",
+          "children": [],
+          "ref": "specialRecover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act20",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "特殊20006": {
+      "id": "n150",
+      "name": "替代招式乙（原效果待核实）",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n146",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode21",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：15.0"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n148",
+          "name": "限制接近耗时（时限参数待核对）",
+          "kind": "超时",
+          "children": [
+            {
+              "id": "n147",
+              "name": "沿可走路径靠近玩家，直到达到本招间距",
+              "kind": "动作",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach21",
+              "parameters": [],
+              "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+            }
+          ],
+          "detail": "进入时开始计时；超时中止移动并返回失败。原资料只给出ApproachLife参数名，不能把它当成进入前的布尔条件。",
+          "parameters": [
+            "原参数 ApproachLife"
+          ]
+        },
+        {
+          "id": "n149",
+          "name": "第1击：播放攻击并等待结束",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Strike21_0",
+          "parameters": [
+            "原动作编号 20006",
+            "攻击编号：20006"
+          ],
+          "detail": "当前使用替代动画。动画或技能任务报告完成才进入下一步；失败返回本序列。具体受击和死亡中断需核对UE任务。"
+        },
+        {
+          "id": "n151",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n152",
+          "name": "替代招式结束后：进入走位判断",
+          "kind": "子树",
+          "children": [],
+          "ref": "specialRecover",
+          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act21",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "变体专用接近": {
+      "id": "n155",
+      "name": "接近型变体：只靠近玩家",
+      "kind": "顺序",
+      "children": [
+        {
+          "id": "n153",
+          "name": "设置本招接近距离与转向速度",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Mode54",
+          "parameters": [
+            "转向速度（度/秒）：360.0",
+            "接近目标距离（脚本单位）：1.0"
+          ],
+          "detail": "这里只设置执行参数，不选择下一招。间距参数见下方。"
+        },
+        {
+          "id": "n154",
+          "name": "沿可走路径靠近玩家，直到达到本招间距",
+          "kind": "动作",
+          "children": [],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Approach54",
+          "parameters": [],
+          "detail": "运行中持续执行移动；到达目标范围成功，寻路失败返回失败。距离测量基准与边界包含关系待核对UE。"
+        },
+        {
+          "id": "n156",
+          "name": "恢复步行并面向玩家",
+          "kind": "动作",
+          "children": [],
+          "parameters": [
+            "转向速度 360°/秒",
+            "默认接近间距 2.5（脚本单位）"
+          ]
+        },
+        {
+          "id": "n157",
+          "name": "本轮结束，下一轮重新检查",
+          "kind": "成功",
+          "children": []
+        }
+      ],
+      "source": "/Game/Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.BT_DS3_Special:Act54",
+      "parameters": [],
+      "detail": "依次执行；当前步骤完成才进入下一步。某一步失败，则本组失败。"
+    },
+    "rules": {
+      "id": "n363",
+      "name": "从上到下检查：第一条满足条件的分支执行一轮",
+      "kind": "选择",
+      "children": [
+        {
+          "id": "n163",
+          "name": "外部请求要求使用替代招式（用途待核实）",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n162",
+              "name": "收到要求执行替代招式甲的外部请求（用途待核实）",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode44",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n161",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n160",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n159",
+                      "name": "替代招式甲（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n158",
+                          "name": "替代招式甲（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20005",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "特殊20005",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode43",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 响应事件100：特殊动作20005"
+          ]
+        },
+        {
+          "id": "n169",
+          "name": "只接近的变体",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n168",
+              "name": "使用只接近的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode46",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n167",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n166",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n165",
+                      "name": "接近型变体：只靠近玩家",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n164",
+                          "name": "接近型变体：只靠近玩家",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "变体专用接近",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "变体专用接近",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode45",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 110054变体：专用接近"
+          ]
+        },
+        {
+          "id": "n179",
+          "name": "旁观角色：后退或侧移",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n176",
+              "name": "队伍职责是旁观或围攻",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode48",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n177",
+              "name": "队伍职责属于这两种配合角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode49",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n178",
+              "name": "旁观角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode2",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n175",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n174",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n171",
+                      "name": "后退拉开距离",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n170",
+                          "name": "后退拉开距离",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "后退",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 60,
+                      "refAction": "后退",
+                      "conditions": [],
+                      "detail": "权重 60。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n173",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n172",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 40,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 40。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode1",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 旁观：后退60 / 侧移40"
+          ]
+        },
+        {
+          "id": "n192",
+          "name": "围攻角色且玩家较远",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n188",
+              "name": "队伍职责是旁观或围攻",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode48",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n189",
+              "name": "队伍职责属于这两种配合角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode49",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n190",
+              "name": "围攻角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode4",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n191",
+              "name": "间距 ≥ 5.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode5",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n187",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n186",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n181",
+                      "name": "向前冲刺攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n180",
+                          "name": "向前冲刺攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "前冲攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "前冲攻击",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n183",
+                      "name": "后退拉开距离",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n182",
+                          "name": "后退拉开距离",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "后退",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 50,
+                      "refAction": "后退",
+                      "conditions": [],
+                      "detail": "权重 50。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n185",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n184",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 30,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 30。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode3",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 围攻远距：前冲20 / 后退50 / 侧移30"
+          ]
+        },
+        {
+          "id": "n202",
+          "name": "围攻角色的其他间距",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n199",
+              "name": "队伍职责是旁观或围攻",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode48",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n200",
+              "name": "队伍职责属于这两种配合角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode49",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n201",
+              "name": "围攻角色",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode7",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n198",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n197",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n194",
+                      "name": "后退拉开距离",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n193",
+                          "name": "后退拉开距离",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "后退",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 50,
+                      "refAction": "后退",
+                      "conditions": [],
+                      "detail": "权重 50。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n196",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n195",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 30,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 30。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.BT_TeamRole:TacticalNode6",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 围攻近中距：后退50 / 侧移30"
+          ]
+        },
+        {
+          "id": "n214",
+          "name": "玩家贴近右侧",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n211",
+              "name": "间距 ≤ 2",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode10",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n212",
+              "name": "玩家在怪物右侧 ≥ 45°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode11",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n213",
+              "name": "玩家在怪物右侧 ≤ 135°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode12",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n210",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n209",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n204",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n203",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 30,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 30。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n206",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n205",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n208",
+                      "name": "转身面向玩家",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n207",
+                          "name": "转身面向玩家",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "转身",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 55,
+                      "refAction": "转身",
+                      "conditions": [],
+                      "detail": "权重 55。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode9",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 右侧：连击B30 / 冷却攻击15 / 转身55"
+          ]
+        },
+        {
+          "id": "n226",
+          "name": "玩家贴近左侧",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n223",
+              "name": "间距 ≤ 2",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode14",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n224",
+              "name": "玩家在怪物左侧 ≥ -135°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode15",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n225",
+              "name": "玩家在怪物左侧 ≤ -45°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode16",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n222",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n221",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n216",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n215",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 30,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 30。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n218",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n217",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n220",
+                      "name": "转身面向玩家",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n219",
+                          "name": "转身面向玩家",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "转身",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 55,
+                      "refAction": "转身",
+                      "conditions": [],
+                      "detail": "权重 55。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode13",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 左侧：连击A30 / 冷却攻击15 / 转身55"
+          ]
+        },
+        {
+          "id": "n233",
+          "name": "玩家在右后方",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n231",
+              "name": "间距 ≤ 10",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode18",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n232",
+              "name": "偏离正面 ≥ 60°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode19",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n230",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n229",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n228",
+                      "name": "转身面向玩家",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n227",
+                          "name": "转身面向玩家",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "转身",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "转身",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode17",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 右后方：转身"
+          ]
+        },
+        {
+          "id": "n240",
+          "name": "玩家在左后方",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n238",
+              "name": "间距 ≤ 10",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode21",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n239",
+              "name": "偏离正面 ≤ -60°",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode22",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n237",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n236",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n235",
+                      "name": "转身面向玩家",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n234",
+                          "name": "转身面向玩家",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "转身",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "转身",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.BT_FacingResponse:TacticalNode20",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 左后方：转身"
+          ]
+        },
+        {
+          "id": "n247",
+          "name": "专用招式变体：玩家较远",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n245",
+              "name": "使用专用招式变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode52",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n246",
+              "name": "间距 ≥ 13",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode25",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n244",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n243",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n242",
+                      "name": "替代招式甲（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n241",
+                          "name": "替代招式甲（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20005",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "特殊20005",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode24",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 距离远：特殊动作20005"
+          ]
+        },
+        {
+          "id": "n253",
+          "name": "专用招式变体：其他间距",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n252",
+              "name": "使用专用招式变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode52",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n251",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n250",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n249",
+                      "name": "替代招式乙（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n248",
+                          "name": "替代招式乙（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20006",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "特殊20006",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode26",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 距离近：特殊动作20006"
+          ]
+        },
+        {
+          "id": "n261",
+          "name": "受伤变体：玩家较远",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n258",
+              "name": "使用受伤后改变招式的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode54",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n259",
+              "name": "生命比例 ≤ 80%",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode55",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n260",
+              "name": "间距 ≥ 13",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode25",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n257",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n256",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n255",
+                      "name": "替代招式甲（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n254",
+                          "name": "替代招式甲（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20005",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "特殊20005",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode24",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 距离远：特殊动作20005"
+          ]
+        },
+        {
+          "id": "n268",
+          "name": "受伤变体：其他间距",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n266",
+              "name": "使用受伤后改变招式的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode54",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n267",
+              "name": "生命比例 ≤ 80%",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.BT_DecisionRules:TacticalNode55",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n265",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n264",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n263",
+                      "name": "替代招式乙（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n262",
+                          "name": "替代招式乙（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20006",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 100,
+                      "refAction": "特殊20006",
+                      "conditions": [],
+                      "detail": "权重 100。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.BT_SpecialDistance:TacticalNode26",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 距离近：特殊动作20006"
+          ]
+        },
+        {
+          "id": "n287",
+          "name": "受伤变体配置：远距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n285",
+              "name": "使用受伤后改变招式的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode29",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n286",
+              "name": "间距 ≥ 10",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode30",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n284",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n283",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n270",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n269",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n272",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n271",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n274",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n273",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n276",
+                      "name": "向前冲刺攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n275",
+                          "name": "向前冲刺攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "前冲攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 45,
+                      "refAction": "前冲攻击",
+                      "conditions": [],
+                      "detail": "权重 45。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n278",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n277",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n280",
+                      "name": "替代招式甲（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n279",
+                          "name": "替代招式甲（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20005",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "特殊20005",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n282",
+                      "name": "替代招式乙（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n281",
+                          "name": "替代招式乙（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20006",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "特殊20006",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode28",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 144040远距≥10：前冲、连击与特殊动作"
+          ]
+        },
+        {
+          "id": "n306",
+          "name": "受伤变体配置：较远距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n304",
+              "name": "使用受伤后改变招式的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode32",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n305",
+              "name": "间距 ≥ 5.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode33",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n303",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n302",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n289",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n288",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n291",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n290",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n293",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n292",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n295",
+                      "name": "向前冲刺攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n294",
+                          "name": "向前冲刺攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "前冲攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 45,
+                      "refAction": "前冲攻击",
+                      "conditions": [],
+                      "detail": "权重 45。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n297",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n296",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n299",
+                      "name": "替代招式甲（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n298",
+                          "name": "替代招式甲（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20005",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "特殊20005",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n301",
+                      "name": "替代招式乙（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n300",
+                          "name": "替代招式乙（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20006",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "特殊20006",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode31",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 144040远距：特殊20006权重略高"
+          ]
+        },
+        {
+          "id": "n320",
+          "name": "普通交战：较远距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n319",
+              "name": "间距 ≥ 5.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode35",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n318",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n317",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n308",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n307",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n310",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n309",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n312",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n311",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n314",
+                      "name": "向前冲刺攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n313",
+                          "name": "向前冲刺攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "前冲攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 45,
+                      "refAction": "前冲攻击",
+                      "conditions": [],
+                      "detail": "权重 45。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n316",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n315",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode34",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 普通远距：前冲45 / 连击A15 B10 / 冷却10 / 侧移20"
+          ]
+        },
+        {
+          "id": "n337",
+          "name": "受伤变体配置：中距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n335",
+              "name": "使用受伤后改变招式的变体配置",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode37",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n336",
+              "name": "间距 ≥ 1.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode38",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n334",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n333",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n322",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n321",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n324",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n323",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n326",
+                      "name": "固定两次挥砍",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n325",
+                          "name": "固定两次挥砍",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "固定两段",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "固定两段",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n328",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n327",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 35,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 35。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n330",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n329",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n332",
+                      "name": "替代招式乙（原效果待核实）",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n331",
+                          "name": "替代招式乙（原效果待核实）",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "特殊20006",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 30,
+                      "refAction": "特殊20006",
+                      "conditions": [],
+                      "detail": "权重 30。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode36",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 144040中距：普通候选加特殊20006权重30"
+          ]
+        },
+        {
+          "id": "n351",
+          "name": "普通交战：中距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n350",
+              "name": "间距 ≥ 1.5",
+              "kind": "条件",
+              "children": [],
+              "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode40",
+              "detail": "成立返回成功，不成立返回失败。间距沿用原脚本单位，换算到厘米与测量基准仍需核对。"
+            },
+            {
+              "id": "n349",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n348",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n339",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n338",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n341",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n340",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 20,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 20。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n343",
+                      "name": "固定两次挥砍",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n342",
+                          "name": "固定两次挥砍",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "固定两段",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "固定两段",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n345",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n344",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 35,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 35。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n347",
+                      "name": "绕着玩家侧移",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n346",
+                          "name": "绕着玩家侧移",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "侧移",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 10,
+                      "refAction": "侧移",
+                      "conditions": [],
+                      "detail": "权重 10。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode39",
+          "detail": "从上到下检查。条件失败才尝试下一分支，条件全部成立则执行该分支。",
+          "parameters": [
+            "原规则 普通中距：连击A20 B20 / 两段15 / 冷却35 / 侧移10"
+          ]
+        },
+        {
+          "id": "n362",
+          "name": "普通交战：近距离",
+          "kind": "顺序",
+          "children": [
+            {
+              "id": "n361",
+              "name": "执行完本分支便结束本轮",
+              "kind": "结果转成功",
+              "children": [
+                {
+                  "id": "n360",
+                  "name": "从下面行动中抽取一个并执行",
+                  "kind": "加权选择",
+                  "children": [
+                    {
+                      "id": "n353",
+                      "name": "连续挥砍A",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n352",
+                          "name": "连续挥砍A",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击A",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 25,
+                      "refAction": "连击A",
+                      "conditions": [],
+                      "detail": "权重 25。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n355",
+                      "name": "连续挥砍B",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n354",
+                          "name": "连续挥砍B",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "连击B",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "连击B",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n357",
+                      "name": "固定两次挥砍",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n356",
+                          "name": "固定两次挥砍",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "固定两段",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 15,
+                      "refAction": "固定两段",
+                      "conditions": [],
+                      "detail": "权重 15。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    },
+                    {
+                      "id": "n359",
+                      "name": "带独立冷却的单次攻击",
+                      "kind": "候选",
+                      "children": [
+                        {
+                          "id": "n358",
+                          "name": "带独立冷却的单次攻击",
+                          "kind": "子树",
+                          "children": [],
+                          "ref": "3003冷却攻击",
+                          "detail": "展开查看同一份定义。修改定义会作用于所有调用位置。"
+                        }
+                      ],
+                      "weight": 45,
+                      "refAction": "3003冷却攻击",
+                      "conditions": [
+                        "距上次发动 > 20秒，才参与抽签"
+                      ],
+                      "detail": "权重 45。在当前可用候选中按相对权重抽取，抽中后保持执行。"
+                    }
+                  ],
+                  "detail": "先排除未满足准入条件的候选，再归一化权重。执行期间保持本次选择，失败后不换招重抽。"
+                }
+              ],
+              "detail": "内部RUNNING继续等待；内部成功或失败均让本分支结束。这样动作失败不会跌入下面的另一条局势规则。此为副本明确采用的控制结构，尚未验证UE等价性。"
+            }
+          ],
+          "source": "/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.BT_DistanceChoices:TacticalNode41",
+          "detail": "前面的分支都未命中时进入；普通正面情形对应间距 < 1.5。",
+          "parameters": [
+            "原规则 近距：连击A25 B15 / 两段15 / 冷却攻击45"
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "这是对现有档案的策划阅读重构。原始档案保留。",
+    "间距使用原脚本单位，换算到UE厘米与测量基准待核对。不能把5.5直接理解为5.5米。",
+    "普通阅读情形指无外部请求、基础配置、非旁观或围攻。完整树仍显示全部19条规则。",
+    "替代招式甲/乙分别对应原20005/20006；当前为近战替代，原效果未知。",
+    "外部请求的发出方、触发场景与清除时机未知。这是待核实逻辑，不能当成已经讲清楚的战斗设计。",
+    "结果转成功与超时节点明确副本控制语义，UE运行一致性尚待验证。"
+  ]
+}
