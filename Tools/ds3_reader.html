@@ -1,14 +1,80 @@
-<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>断剑怪 · 从这里看</title>
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>断剑怪 · 行为树导图</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#10151e;color:#e1e7ef;font:16px/1.7 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1100px;margin:auto;padding:32px 24px}h1{font-size:28px;margin:0 0 10px}h2{font-size:20px}p{margin:8px 0}.muted,small{color:#9eafc3}code{word-break:break-all;color:#a8d4ff}section{background:#192230;border:1px solid #304156;border-radius:12px;padding:20px;margin:18px 0}.steps{padding-left:24px}.steps li{padding:6px 0}button{background:#253c54;color:#e1e7ef;border:1px solid #496480;padding:8px 12px;border-radius:6px;cursor:pointer;margin-right:8px}details.node{margin:8px 0 8px 16px;border-left:2px solid #3b536a;padding:0 0 0 12px}summary{cursor:pointer;padding:6px 8px;border-radius:5px}summary:hover{background:#233449}.tag{font-size:12px;color:#a5c8e9;border:1px solid #47617c;border-radius:4px;padding:2px 5px;margin-right:8px}.desc{color:#b7c6d8;padding:0 12px 8px}.conditions{color:#f1cd8b;background:#342d23;padding:8px 12px;border-radius:6px;margin:6px 0}.params{color:#a8d9c1;margin:4px 0}details.source{font-size:12px;color:#8da1b7;margin:8px 0}.source summary{padding:0}#tree{font-size:15px}a{color:#a8d4ff}
-</style><main><h1>断剑怪：先看入口，再看顺序</h1><p class="muted">只读取当前工程配置。这里没有模拟运行，也没有修改游戏。</p>
-<section><b>游戏实际启动的是这一棵主树</b><p id="main"></p><p class="muted">读取依据：怪物控制器的“运行行为树”引用。其他树是从这棵树调用进去的内部步骤。</p></section>
-<section><h2>先读完这一轮</h2><p><b>有目标才进入战斗；没有目标，等待0.2秒后重查。</b></p><ol class="steps"><li><b>准备数据</b>：首次记录半径、速度等；后续轮次跳过已完成的初始化。</li><li><b>判断局势并选一次行动</b>：先测量距离等，再依次检查事件、变体、队伍职责、侧后方向，最后看普通距离规则。命中一组后配置候选，过滤冷却，再抽签。</li><li><b>执行选中的行动</b>：进入对应攻击或走位。需要接近时先接近；攻击没有结束，就等待，不会同时执行下一步。</li><li><b>恢复步行与朝向配置</b>。</li><li><b>判断是否追加走位</b>：重新测量距离，普通攻击有50%机会进入调整，特殊动作必定进入，移动行动跳过；按树中条件执行走位或结束。</li></ol><p>这一轮结束后再开始下一轮。目标失效会中止当前战斗分支；步骤失败则向上返回，由上层决定接下来执行什么。</p></section>
-<section><h2>沿着编号展开看</h2><p class="muted">同一层按编号阅读。黄色内容是附着在步骤上的条件／限制，下面才是执行内容。展开子树不用切换页面。</p><p><button id="compact">只看主干</button><button id="all">全部展开</button></p><div id="tree"></div></section>
-</main><script>
+:root{color-scheme:light;--ink:#17283f;--dim:#53677f;--line:#dce5ef;--blue:#225fa6;--paper:#f4f7fb}
+*{box-sizing:border-box}body{margin:0;height:100dvh;display:grid;grid-template-rows:auto auto minmax(0,1fr);color:var(--ink);background:white;font:15px/1.55 system-ui,"Microsoft YaHei",sans-serif}h1,h2,p{margin:0}header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line)}h1{font-size:21px}.eyebrow{font-size:12px;color:var(--blue);font-weight:700;letter-spacing:.08em}.sub{font-size:13px;color:var(--dim)}.tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);border-radius:7px;background:#fff;padding:5px 10px}button:hover{background:#edf4fd}button:focus-visible{outline:2px solid #2b72bb;outline-offset:2px}button:disabled{opacity:.45;cursor:default}#scale{font-variant-numeric:tabular-nums;font-size:13px;min-width:47px;text-align:center}
+.guide{padding:9px 22px;background:#edf4fc;color:#365675;font-size:13px;border-bottom:1px solid var(--line)}main{display:grid;grid-template-columns:minmax(0,1fr) 300px;min-height:0}#view{position:relative;overflow:auto;background-color:var(--paper);background-image:radial-gradient(#cfdbea 1px,transparent 1px);background-size:20px 20px;cursor:grab;overscroll-behavior:contain}#view.drag{cursor:grabbing;user-select:none}#board{position:relative;width:max-content;min-width:100%;min-height:100%;display:flex;align-items:center;padding:28px 32px;isolation:isolate}#wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}.branch{display:flex;align-items:center;gap:37px}.children{display:flex;flex-direction:column;gap:13px}.topic{width:205px;border:1px solid #cddbeb;border-left:4px solid var(--accent,#5a7ca5);border-radius:9px;background:#fff;box-shadow:0 2px 8px #203b5710}.topic.selected{outline:2px solid var(--accent,#3372b5);outline-offset:2px}.topic.root{width:184px;background:#173961;color:white;border-color:#173961}.topic.root .meta{color:#c8dbef}.topic.root button:hover{background:#204876}.row{display:flex;align-items:center}.pick{flex:1;min-width:0;text-align:left;border:0;background:none;border-radius:7px;padding:8px 9px}.name{display:block;font-weight:670;font-size:14px;overflow-wrap:anywhere}.meta{display:block;color:var(--dim);font-size:11px;margin-top:2px}.toggle{flex:none;padding:0;width:26px;height:26px;margin:0 6px 0 1px;line-height:24px;font-weight:700;color:var(--accent,#325c8f);border-color:#d1deee}.root .toggle{color:#173961}.gate{border-top:1px solid #f1e6ca;color:#765014;background:#fffbef;border-radius:0 0 7px 7px;padding:4px 8px;font-size:11.5px;overflow-wrap:anywhere}.gate span{display:block}
+aside{border-left:1px solid var(--line);overflow:auto;padding:19px 17px;background:#fff}aside h2{font-size:19px;line-height:1.35;margin:6px 0 10px}aside p,aside ul{font-size:13px;margin:7px 0 12px}aside ul{padding-left:18px}.crumb{font-size:12px;color:var(--dim);overflow-wrap:anywhere}.block{padding-top:10px;margin-top:14px;border-top:1px solid var(--line)}.block b{font-size:13px}code{font-size:11px;word-break:break-all;color:#34567c}details summary{cursor:pointer;font-size:13px;color:var(--blue)}#hint{color:var(--dim);font-size:12px}.badge{color:var(--blue);font-size:12px;font-weight:700}.mobile{display:none}
+@media(max-width:850px){main{grid-template-columns:minmax(0,1fr)}aside{display:none;position:fixed;right:0;bottom:0;top:0;width:min(300px,90vw);z-index:3;box-shadow:-8px 0 24px #18365328}aside.show{display:block}.mobile{display:inline-block}header{padding:9px 12px;align-items:start}h1{font-size:17px}.sub{display:none}.guide{padding:8px 12px}#board{padding:20px 24px}}
+</style>
+<header><div><div class="eyebrow">断剑怪 · 只读导图</div><h1>从主树看一轮战斗</h1><div class="sub" id="asset"></div></div><div class="tools"><button id="reset">回到主干</button><button id="minus" aria-label="缩小">−</button><span id="scale"></span><button id="plus" aria-label="放大">＋</button><button class="mobile" id="show-details">节点详情</button></div></header>
+<div class="guide">从左往右读层级，同一组从上往下读编号。点 <b>＋</b> 展开，点节点看详情，拖动空白处平移。</div>
+<main><div id="view" tabindex="0" aria-label="横向行为树画布"><div id="board"><svg id="wires" aria-hidden="true"></svg><div id="tree"></div></div></div><aside id="inspector" aria-label="节点详情"><button class="mobile" id="close-details">关闭详情</button><div id="detail"></div></aside></main>
+<script>
 const data=__TREE_DATA__;
-const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
-document.querySelector('#main').append(el('code',data.main));
-function render(n,depth=0){const box=el('details',undefined,'node');box.dataset.depth=depth;box.open=depth<2;const s=el('summary');s.append(el('span',n.kind,'tag'),document.createTextNode((n.order?n.order+'. ':'')+n.name));box.append(s);const body=el('div',undefined,'desc');if(n.conditions?.length){const c=el('div',undefined,'conditions');for(const x of n.conditions)c.append(el('div',x.kind+'：'+x.name));body.append(c)}if(n.explanation)body.append(el('p',n.explanation));for(const p of n.parameters||[])body.append(el('div',p,'params'));if(n.asset)body.append(el('small','调用：'+n.asset.split('/').pop()));const source=el('details',undefined,'source');source.append(el('summary','查看 UE 中的位置'),el('code',n.path));body.append(source);box.append(body);for(const c of n.children||[])box.append(render(c,depth+1));return box}
-document.querySelector('#tree').append(render(data.root));document.querySelector('#compact').onclick=()=>document.querySelectorAll('.node').forEach(e=>e.open=Number(e.dataset.depth)<2);document.querySelector('#all').onclick=()=>document.querySelectorAll('.node').forEach(e=>e.open=true);
+const $=id=>document.getElementById(id);
+const el=(tag,value,cls)=>{const e=document.createElement(tag);if(value!==undefined)e.textContent=value;if(cls)e.className=cls;return e};
+const view=$('view'),board=$('board'),wires=$('wires'),tree=$('tree');
+const colors=['#3475b3','#338171','#975d9d','#a56a39','#52649b','#6d7b91'];
+const stages=['准备数据','判断局势并选招','执行本轮行动','恢复步行与朝向','决定是否追加走位'];
+const stageText=['首次记录半径、速度和单位换算；已初始化就继续下一步。','先读取局势，再按优先级匹配规则；排除冷却招式后抽一次。','执行已选攻击或走位；需要接近就先接近，攻击未结束时等待。','结束动作后恢复步行和面向目标的配置。','重新测距离，按行动类型和概率决定走位或结束。'];
+const root=data.root, open=new Set(['0','0.0']);let chosen='0',zoom=1,nodes=new Map(),edges=[];
+const getName=(n,id)=>{
+ if(id==='0')return 'BT_BrokenSword_Combat'===data.main.split('.').pop()?'断剑怪 · 主树':data.main.split('.').pop();
+ if(id==='0.0')return '有目标 · 战斗一轮';
+ if(id==='0.1')return '无目标 · 等待重查';
+ const m=id.match(/^0\.0\.(\d+)$/);if(m&&stages[m[1]])return stages[m[1]];
+ return n.name.replace(/｜双击查看[^｜]+$/,'');
+};
+function drawWires(){
+ const b=board.getBoundingClientRect();
+ const point=(e,right)=>{const r=e.getBoundingClientRect();return [( (right?r.right:r.left)-b.left)/zoom,(r.top+r.height/2-b.top)/zoom]};
+ wires.replaceChildren();
+ for(const [a,c,color] of edges){const [x,y]=point(a,true),[X,Y]=point(c,false),mid=(x+X)/2;
+  const line=document.createElementNS('http://www.w3.org/2000/svg','path');
+  line.setAttribute('d',`M ${x} ${y} C ${mid} ${y}, ${mid} ${Y}, ${X} ${Y}`);
+  line.setAttribute('stroke',color);line.setAttribute('stroke-width','1.6');line.setAttribute('opacity','.65');line.setAttribute('fill','none');wires.append(line);
+ }
+}
+function show(id,fromClick=false){
+ chosen=id;const r=nodes.get(id);if(!r)return;
+ for(const [key,v] of nodes)v.card.classList.toggle('selected',key===id);
+ const {n,title,parents}=r,p=$('detail');p.replaceChildren(el('div',n.kind,'badge'),el('h2',title),el('p',parents.join(' → ')||'游戏入口','crumb'));
+ const m=id.match(/^0\.0\.(\d+)$/);
+ if(id==='0')p.append(el('p','先检查目标。进入战斗后，按 1 到 5 完成一轮；没有目标就等待再查。'));
+ else if(m&&stageText[m[1]])p.append(el('p',stageText[m[1]]));
+ if(n.explanation)p.append(el('p',n.explanation));
+ function block(label,values){if(!values.length)return;const s=el('section',undefined,'block'),l=el('ul');s.append(el('b',label),l);for(const v of values)l.append(el('li',v));p.append(s)}
+ block('进入条件与执行限制',(n.conditions||[]).map(x=>x.name));
+ block('参数',n.parameters||[]);
+ const ue=el('details',undefined,'block');ue.append(el('summary','在 UE 里的位置'),el('p',n.name),el('code',id==='0'?data.main:n.path));if(n.asset)ue.append(el('p','调用资产'),el('code',n.asset));p.append(ue);
+ if(fromClick&&matchMedia('(max-width:850px)').matches)$('inspector').classList.add('show');
+}
+function make(n,id,parents=[],accent=colors[0]){
+ const title=getName(n,id),children=n.children||[],branch=el('div',undefined,'branch'),card=el('div',undefined,'topic'+(id==='0'?' root':''));
+ card.style.setProperty('--accent',accent);nodes.set(id,{n,title,parents,card});branch.append(card);
+ const row=el('div',undefined,'row'),select=el('button',undefined,'pick');
+ select.append(el('span',(n.order?n.order+'  ':'')+title,'name'),el('span',id==='0'?data.main.split('.').pop():n.kind,'meta'));row.append(select);card.append(row);
+ select.onclick=()=>show(id,true);
+ if(children.length){const expanded=open.has(id),toggle=el('button',expanded?'−':'+','toggle');toggle.setAttribute('aria-label',(expanded?'折叠':'展开')+title);toggle.setAttribute('aria-expanded',expanded);row.append(toggle);
+  toggle.onclick=()=>{const old=card.getBoundingClientRect();expanded?open.delete(id):open.add(id);if(expanded&&chosen.startsWith(id+'.'))chosen=id;render();
+   const next=nodes.get(id)?.card;if(next){view.scrollTop+=next.getBoundingClientRect().top-old.top;next.querySelector('.toggle')?.focus({preventScroll:true})}};
+ }
+ if(n.conditions?.length){const g=el('div',undefined,'gate');for(const c of n.conditions)g.append(el('span',c.name));card.append(g)}
+ if(children.length&&open.has(id)){const list=el('div',undefined,'children');branch.append(list);children.forEach((child,i)=>{const cid=id+'.'+i,color=id==='0.0'?colors[i%colors.length]:id==='0'&&i===1?colors[5]:accent;list.append(make(child,cid,[...parents,title],color));edges.push([card,nodes.get(cid).card,color])})}
+ return branch;
+}
+function render(){nodes=new Map();edges=[];tree.replaceChildren(make(root,'0'));show(nodes.has(chosen)?chosen:'0');drawWires()}
+function setZoom(z){zoom=Math.max(.6,Math.min(1.4,Math.round(z*10)/10));board.style.zoom=zoom;$('scale').textContent=Math.round(zoom*100)+'%';$('minus').disabled=zoom<=.6;$('plus').disabled=zoom>=1.4;drawWires()}
+$('asset').textContent=data.main.split('.').pop()+'  ·  游戏实际入口';
+$('minus').onclick=()=>setZoom(zoom-.1);$('plus').onclick=()=>setZoom(zoom+.1);
+$('reset').onclick=()=>{open.clear();open.add('0');open.add('0.0');chosen='0';render();setZoom(1);view.scrollTo(0,0)};
+$('show-details').onclick=()=>$('inspector').classList.add('show');$('close-details').onclick=()=>$('inspector').classList.remove('show');
+let drag=null;
+view.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('.topic')||e.target===view)return;drag={x:e.clientX,y:e.clientY,l:view.scrollLeft,t:view.scrollTop};view.setPointerCapture(e.pointerId);view.classList.add('drag')});
+view.addEventListener('pointermove',e=>{if(drag){view.scrollLeft=drag.l+drag.x-e.clientX;view.scrollTop=drag.t+drag.y-e.clientY}});
+view.addEventListener('lostpointercapture',()=>{drag=null;view.classList.remove('drag')});
+render();setZoom(1);new ResizeObserver(drawWires).observe(board);
 </script></html>
