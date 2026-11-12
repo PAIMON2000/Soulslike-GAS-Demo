@@ -42,7 +42,7 @@ project=g.fn('/Script/NavigationSystem.NavigationSystemV1.K2_ProjectPointToNavig
 move=g.fn('/Script/AIModule.AIController.MoveToLocation');link(tick,'OwnerController',move,'self');link(project,'ProjectedLocation',move,'Dest');val(move,'AcceptanceRadius',3);val(move,'bStopOnOverlap','false');val(move,'bCanStrafe','true');seq(valid,move)
 end(valid,'else')
 tail=stop(g,abort,abort);finish(g,tail,abort=True)
-g.finish('Execution only: SidewayMove/LeaveTarget/Approach/Turn proxies use native AIController path following. Refresh active relative goal every .2s, keep held side and source duration; stop at completion/abort. Orbital geometry is a UE approximation. No action selection in Tick.')
+g.finish()
 
 # Independent optional post-attack behavior; source probabilities and no invented wait.
 vars=[('Roll','int',0),('PostChance','int',0)]
@@ -68,5 +68,5 @@ for threshold,side_odds,back_odds in [(4,30,30),(2,15,25),(.5,5,20),(-1e9,0,15)]
  cond=g.calc('GreaterEqual_DoubleDouble',units,constant=threshold);b=g.branch((cond,'ReturnValue'));seq(previous,b,'else');side=g.calc('LessEqual_IntInt',g.get('Roll'),'Roll',constant=side_odds);s=g.branch((side,'ReturnValue'));seq(b,s);choose(s,1)
  back=g.calc('LessEqual_IntInt',g.get('Roll'),'Roll',constant=back_odds);bk=g.branch((back,'ReturnValue'));seq(s,bk,'else');choose(bk,2);finish(g,bk,out='else');previous=b
 finish(g,previous,out='else')
-g.finish('110050 AfterAttackAct: 50% normal attacks / 100% specials enter adjustment, movement actions skip it. Source distance probabilities; otherwise no queued move, no artificial wait. Team roles use retreat-to-8 or sideway.')
+g.finish()
 print('DS3_MOVEMENT_TASKS_READY')

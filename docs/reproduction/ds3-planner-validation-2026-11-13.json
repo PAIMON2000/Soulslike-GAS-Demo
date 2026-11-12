@@ -1,0 +1,287 @@
+{
+  "passed": true,
+  "main": "/Game/Gameplay/AI/DS3BrokenSword/Planner/Grouped/BT_断剑怪_战斗循环.BT_断剑怪_战斗循环",
+  "rules": "/Game/Gameplay/AI/DS3BrokenSword/Planner/Grouped/BT_断剑怪_选择本轮行动.BT_断剑怪_选择本轮行动",
+  "top_level_count": 6,
+  "rule_count": 19,
+  "action_count": 11,
+  "tests": [
+    {
+      "name": "weights_far",
+      "passed": true,
+      "expected": {
+        "1": 15,
+        "2": 10,
+        "4": 0,
+        "5": 10,
+        "6": 45,
+        "12": 20
+      },
+      "actual": {
+        "1": 15.0,
+        "2": 10.0,
+        "4": 0.0,
+        "5": 10.0,
+        "6": 45.0,
+        "12": 20.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_mid",
+      "passed": true,
+      "expected": {
+        "1": 20,
+        "2": 20,
+        "4": 15,
+        "5": 35,
+        "6": 0,
+        "12": 10
+      },
+      "actual": {
+        "1": 20.0,
+        "2": 20.0,
+        "4": 15.0,
+        "5": 35.0,
+        "6": 0.0,
+        "12": 10.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_near",
+      "passed": true,
+      "expected": {
+        "1": 25,
+        "2": 15,
+        "4": 15,
+        "5": 45,
+        "6": 0,
+        "12": 0
+      },
+      "actual": {
+        "1": 25.0,
+        "2": 15.0,
+        "4": 15.0,
+        "5": 45.0,
+        "6": 0.0,
+        "12": 0.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_3003_cooldown",
+      "passed": true,
+      "expected": {
+        "1": 20,
+        "2": 20,
+        "4": 15,
+        "5": 0,
+        "6": 0,
+        "12": 10
+      },
+      "actual": {
+        "1": 20.0,
+        "2": 20.0,
+        "4": 15.0,
+        "5": 0.0,
+        "6": 0.0,
+        "12": 10.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_right",
+      "passed": true,
+      "expected": {
+        "1": 0,
+        "2": 30,
+        "5": 15,
+        "13": 55
+      },
+      "actual": {
+        "1": 0.0,
+        "2": 30.0,
+        "5": 15.0,
+        "13": 55.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_behind",
+      "passed": true,
+      "expected": {
+        "1": 0,
+        "5": 0,
+        "13": 100
+      },
+      "actual": {
+        "1": 0.0,
+        "5": 0.0,
+        "13": 100.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_spectator",
+      "passed": true,
+      "expected": {
+        "11": 60,
+        "12": 40
+      },
+      "actual": {
+        "11": 60.0,
+        "12": 40.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_encircle",
+      "passed": true,
+      "expected": {
+        "6": 20,
+        "11": 50,
+        "12": 30
+      },
+      "actual": {
+        "6": 20.0,
+        "11": 50.0,
+        "12": 30.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_event",
+      "passed": true,
+      "expected": {
+        "20": 100
+      },
+      "actual": {
+        "20": 100.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_special144041",
+      "passed": true,
+      "expected": {
+        "20": 100
+      },
+      "actual": {
+        "20": 100.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_special144040_weights",
+      "passed": true,
+      "expected": {
+        "20": 10,
+        "21": 20,
+        "6": 45
+      },
+      "actual": {
+        "20": 10.0,
+        "21": 20.0,
+        "6": 45.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_left",
+      "passed": true,
+      "expected": {
+        "1": 30,
+        "2": 0,
+        "5": 15,
+        "13": 55
+      },
+      "actual": {
+        "1": 30.0,
+        "2": 0.0,
+        "5": 15.0,
+        "13": 55.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_variant_approach",
+      "passed": true,
+      "expected": {
+        "54": 100,
+        "1": 0,
+        "13": 0
+      },
+      "actual": {
+        "54": 100.0,
+        "1": 0.0,
+        "13": 0.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "weights_encircle_near",
+      "passed": true,
+      "expected": {
+        "6": 0,
+        "11": 50,
+        "12": 30
+      },
+      "actual": {
+        "6": 0.0,
+        "11": 50.0,
+        "12": 30.0
+      },
+      "runtime_tree": "BT_断剑怪_战斗循环"
+    },
+    {
+      "name": "approach_then_committed_combo",
+      "passed": true,
+      "attack_ids": [
+        3000,
+        3001,
+        3002
+      ],
+      "first_attack_min_distance": 152.91090393066406,
+      "max_speed": 300.0
+    },
+    {
+      "name": "sideway_moves_and_holds_distance",
+      "passed": true,
+      "lateral": 146.0235524699743,
+      "distance_min": 393.8715515136719,
+      "distance_max": 450.0
+    },
+    {
+      "name": "retreat_is_executed",
+      "passed": true,
+      "distance": 405.9434509277344
+    },
+    {
+      "name": "long_action_uses_distinct_approach_and_advance",
+      "passed": true,
+      "start": {
+        "distance": 685.0936889648438,
+        "time": 1.3708775974810123
+      },
+      "min_distance": 118.5325927734375
+    },
+    {
+      "name": "stop_tree_cancels_attack_and_movement",
+      "passed": true,
+      "active": false,
+      "speed": 0.0
+    },
+    {
+      "name": "invalid_target_cancels_navigation",
+      "passed": true,
+      "speed": 0.0
+    },
+    {
+      "name": "failed_action_ends_round_without_trying_lower_rule",
+      "passed": true,
+      "rounds": 3,
+      "samples": 35
+    }
+  ]
+}

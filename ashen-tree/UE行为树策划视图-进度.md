@@ -1,5 +1,11 @@
 # UE 行为树策划视图
 
+当前 UE 主树为 `/Game/Gameplay/AI/DS3BrokenSword/Compact/BT_BrokenSword_Combat`。有目标时，先测方向和距离，优先处理侧面和背后，再按远、中、近选招。七条规则共享同一套冷却筛选与抽取。最后打开 `BT_BrokenSword_ExecuteAction`，查看七种行动以及攻击结束后的朝向与走位。
+
+收敛版已接入控制器，通过 14 项编辑器试玩检查，覆盖选招权重、冷却、追击、侧移、转身、目标丢失与动作失败。
+
+此前运行的分层版存放在 `LocalBackups/断剑怪_分层版_2026-11-13`，包含原控制器、战斗循环及其子树、黑板和任务。指定动作请求、队伍配合和特殊变体保留在该版本中。恢复时先关闭 UE，将备份的 `Content` 合并到同一工程，再重新打开编辑器。
+
 断剑怪的第一版策划树已整理成可在 behaviac Designer 中打开的工作区。`00` 是完整战斗循环，`02` 是普通断剑怪的方向与间距判断。移动、攻击等方法目前是供编辑器使用的接口声明。插件仍处于方案阶段。[behaviac 工作区](behaviac-workspace/BrokenSword.workspace.xml)
 
 ## 第一版范围

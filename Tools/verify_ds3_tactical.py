@@ -3,7 +3,7 @@ import unreal,json,math
 from pathlib import Path
 P=Path(unreal.Paths.project_dir()); OUT=P/'Saved/DS3-Tactical'; OUT.mkdir(parents=True,exist_ok=True)
 AI='/Game/Gameplay/AI/DS3BrokenSword/'; T=AI+'Tactical/'
-main=unreal.load_asset(T+'BT_BrokenSword_Combat'); decision=unreal.load_asset(T+'BT_DecisionRules'); recovery=unreal.load_asset(T+'BT_RecoveryDistance')
+main=unreal.load_asset(T+'BT_断剑怪_历史_战术战斗总览'); decision=unreal.load_asset(T+'BT_断剑怪_历史_战术选招'); recovery=unreal.load_asset(T+'BT_断剑怪_恢复走位规则')
 assert main and decision and recovery
 ids=[1,2,4,5,6,11,12,13,20,21,54]
 def kids(n): return [c.child_composite or c.child_task for c in n.children]

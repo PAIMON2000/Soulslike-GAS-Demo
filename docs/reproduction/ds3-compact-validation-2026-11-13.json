@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-13",
+  "main": "/Game/Gameplay/AI/DS3BrokenSword/Compact/BT_BrokenSword_Combat.BT_BrokenSword_Combat",
+  "action_tree": "/Game/Gameplay/AI/DS3BrokenSword/Compact/BT_BrokenSword_ExecuteAction.BT_BrokenSword_ExecuteAction",
+  "rules": 7,
+  "actions": 7,
+  "previous_main": "/Game/Gameplay/AI/DS3BrokenSword/Planner/Grouped/BT_断剑怪_战斗循环.BT_断剑怪_战斗循环",
+  "backup": "LocalBackups\\断剑怪_分层版_2026-11-13",
+  "archived_trees": 13,
+  "removed_from_content": 23,
+  "passed": true,
+  "tests": [
+    {
+      "name": "weights_far",
+      "passed": true
+    },
+    {
+      "name": "weights_mid",
+      "passed": true
+    },
+    {
+      "name": "weights_near",
+      "passed": true
+    },
+    {
+      "name": "weights_3003_cooldown",
+      "passed": true
+    },
+    {
+      "name": "weights_right",
+      "passed": true
+    },
+    {
+      "name": "weights_behind",
+      "passed": true
+    },
+    {
+      "name": "weights_left",
+      "passed": true
+    },
+    {
+      "name": "approach_then_committed_combo",
+      "passed": true
+    },
+    {
+      "name": "sideway_moves_and_holds_distance",
+      "passed": true
+    },
+    {
+      "name": "turn_to_player_behind",
+      "passed": true
+    },
+    {
+      "name": "long_action_uses_distinct_approach_and_advance",
+      "passed": true
+    },
+    {
+      "name": "stop_tree_cancels_attack_and_movement",
+      "passed": true
+    },
+    {
+      "name": "invalid_target_cancels_navigation",
+      "passed": true
+    },
+    {
+      "name": "failed_action_ends_round_without_trying_lower_rule",
+      "passed": true
+    }
+  ]
+}

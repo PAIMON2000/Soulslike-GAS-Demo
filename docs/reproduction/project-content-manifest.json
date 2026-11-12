@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-09",
-  "snapshot_files": 256,
-  "snapshot_mib": 38.93,
+  "date": "2026-11-13",
+  "snapshot_files": 244,
+  "snapshot_mib": 38.78,
   "excluded_mixamo_assets": [
     "Gameplay/Anims/Roll/AS_Greystone_StandToRoll.uasset",
     "Gameplay/Anims/Roll/Source/AS_Mixamo_StandToRoll.uasset",
@@ -599,7 +599,7 @@
     },
     {
       "path": "Gameplay/AI/BP_EnemyAIController.uasset",
-      "sha256": "b25a587e8fe496070d800aaf31bfc1ae29b56273d4c995ff59da6ff7948d5067"
+      "sha256": "6aa0f2e734b0a3b0b07dbb0fe887128f8cd816bdf60d08f4315893a438f3a16d"
     },
     {
       "path": "Gameplay/AI/BTS_EnemyCombatContext.uasset",
@@ -623,83 +623,43 @@
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSAfterAttack.uasset",
-      "sha256": "a4b523fb1272050d4605de3d7f94ef263b7da817f5251136ddd4c7129c917064"
+      "sha256": "60c6246479a9df922c8066b6264656cef94e3a830f0eadb380c087458bd98087"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSAttack.uasset",
-      "sha256": "11db9486753a4a155e4a6ff7ed4c741019878dd2bef12a1046aff2be7dd09812"
+      "sha256": "6ce60398267fdbb1076a4b5520d129319a1fdfd8c35edb3960705d601e7f5aa1"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSComboChoice.uasset",
-      "sha256": "2ac77a1048f3a869cd69d720ce5d00c66c4f5d8221487686c8f5f325ee10ba09"
+      "sha256": "371420b7f35a264ba41b0011a69b22f54230aca25a224ef391b990fcededbd38"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSDecide.uasset",
-      "sha256": "30831bbf74d0aca1173f44c99e5b186ee7fff1c4a9b5320f969272ab89833d0a"
+      "sha256": "052c2650341191ac31530162543ab1504985e1ab54416493a87a82110580a6c6"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSInit.uasset",
-      "sha256": "c0ec86e949a5bd4ee533d19bb60ffa092b0cd9af9c313af8d598fecfd884c227"
+      "sha256": "2bbe41a84de9c5e1fd8deaac863b2ba24b46f6df3adf4afb37a0365f4e0ca919"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSLocomotion.uasset",
-      "sha256": "655151fec12b856b92318902e7a35f8f41defe27755304af764f08b30096ed17"
+      "sha256": "0cbc3b55a9652a92623af35bd6169b5a4d6ba76fba67d4e59cfe27bb4cc08267"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/BTT_DSRelativeMove.uasset",
-      "sha256": "28416d76565ff4dfd9a0d00ccf4fb060373bfc38b798c226d0b94e84e0f8998d"
+      "sha256": "2706c3b064d2aa0175fedc7135f176428d5bad833666b522ead3815ddb5c5007"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/Compact/BT_BrokenSword_Combat.uasset",
+      "sha256": "8bb30e666b5c18387bb8d00b1e6e3859a535a5751d5baf845ab976e776e1ffec"
+    },
+    {
+      "path": "Gameplay/AI/DS3BrokenSword/Compact/BT_BrokenSword_ExecuteAction.uasset",
+      "sha256": "f3b4385f9539eb63ea0b1ebc4292d7aa725a35202fdb524f66c9f93422cf3675"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BB_DS3_Standard.uasset",
       "sha256": "b36424fe9b9813d35cbf873b3c1a802527141667740cf31737e8412a55ef201a"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Melee.uasset",
-      "sha256": "0b11ec2caf4b5aa5a97435ce90eabe211eb2992e1e7f1631a09093e199eb5d25"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Ranged.uasset",
-      "sha256": "8aa2a36f092197e57760bb8eb029c4ae80825840a1ac327e5608a64c7766f31a"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Spacing.uasset",
-      "sha256": "8e8098752a5c0f60e17b5dc477226f0a25d0fcf343f1c7e2ef5f31cc683d15e9"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/StandardReadable/BT_DS3_Special.uasset",
-      "sha256": "11daba3e6017e0aa7bfbc34ea7791055d1ea545dc7b8ca0486e364c472b7321c"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_AfterAttack.uasset",
-      "sha256": "79edf809c98db831eab5a84a98136c1a4e143d4d68fdf0e81a25e42481946478"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat.uasset",
-      "sha256": "48420edcc179d534982227f4bad54406ee79bd3a6de7a72dd221ace0721e5f01"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_DecisionRules.uasset",
-      "sha256": "ff012edb0f894390d5ce4816d1062923739ebb4d72edd0fbf49daed785d850c1"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_DistanceChoices.uasset",
-      "sha256": "2febe8dc5a0b4dd941a6a218ac147a5d7921ff3a22befec13840896cc515e7e3"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_FacingResponse.uasset",
-      "sha256": "cb6cad87623c835a073aacbb5cc3ddd1e68ecd2ed229a20e6239a72c613ddc30"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_RecoveryDistance.uasset",
-      "sha256": "848cace697c17d8d9228ac34b25658476c9d39a22e12a8b7d1c6efc386e52e68"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_SpecialDistance.uasset",
-      "sha256": "543da441cebd62a5538a81e6efcd5c249b78934f634d73a99433cf8dfeead55f"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Tactical/BT_TeamRole.uasset",
-      "sha256": "1d80972ac6f6b30a3015a8aeef3fa83d1a1bd4a75bcd527f4e0ce9bed2a0f84a"
     },
     {
       "path": "Gameplay/AI/DS3BrokenSword/Tactical/BTT_DrawCandidate.uasset",
@@ -724,14 +684,6 @@
     {
       "path": "Gameplay/AI/DS3BrokenSword/Tactical/BTT_SetRecovery.uasset",
       "sha256": "18c60258e7672e3a548e6d49845e6fe1234cf2e4f345f99468ef82af0360dc87"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Validation/BT_DS3PostProbability.uasset",
-      "sha256": "60e378666d1e842bebe33fbed39ab301ae97129a2523ca8cb6be16e0d4151a3c"
-    },
-    {
-      "path": "Gameplay/AI/DS3BrokenSword/Validation/BT_TacticalRecoveryOnce.uasset",
-      "sha256": "eb1cb9eb7e407cc40f2d1a47b060cd0bc42253ef1d64cfd90d285a16dcb975fc"
     },
     {
       "path": "Gameplay/Anims/ABP_Greystone.uasset",

@@ -3,6 +3,15 @@ import unreal
 AI='/Game/Gameplay/AI/DS3BrokenSword/'
 KM='/Script/Engine.KismetMathLibrary.'
 BT='/Script/AIModule.BTFunctionLibrary.'
+TASK_COMMENTS = {
+ 'BTT_DSInit': '仅在首次执行时初始化。记录角色胶囊半径与跑步速度。每单位按 100 厘米换算，可在任务上配置。',
+ 'BTT_DSDecide': '分层版选招任务。每轮只选一次。按普通交战、侧后响应、队伍角色、事件与变体规则设置候选。3003 有独立的 20 秒冷却。ForcedAction 默认是 0，用于测试。',
+ 'BTT_DSLocomotion': '设置接近目标时的间距、速度和朝向。接近半径扣除角色胶囊半径。距离达到跑步门槛后按概率跑步，更远时强制跑步。步行最多 4 秒，跑步最多 8 秒。',
+ 'BTT_DSComboChoice': '行动 1、2 在连招开始时只抽一次。25% 打两击，75% 打三击。',
+ 'BTT_DSAttack': '开始：停止移动，清除 AI 朝向焦点，设置本击动画与攻击编号，再启动攻击能力。成功启动 3003 时记录冷却起点。\n等待：每帧查看 State.Attacking，标签消失后完成任务。\n中止：取消攻击能力，停止移动，然后结束任务。',
+ 'BTT_DSRelativeMove': '执行侧移、后退、接近或转身。寻路目标每 0.2 秒刷新一次，保持本次选定的移动侧和时长。完成或中止时停止移动。',
+ 'BTT_DSAfterAttack': '分层版收招任务。普通攻击有 50% 概率调整位置，特殊攻击必定调整，移动行动跳过。调整方式按距离抽取，队伍角色可退到 8 单位或侧移。',
+}
 bb=unreal.load_asset(AI+'BB_DS3BrokenSword');keys=list(bb.get_editor_property('keys'))
 def selector(name):
  i=next(i for i,k in enumerate(keys) if str(k.get_editor_property('entry_name'))==name)
@@ -59,7 +68,8 @@ class Graph:
   if source:link(source[0],source[1],n,name)
   elif value is not None:val(n,name,str(value).lower() if isinstance(value,bool) else value)
   return n
- def finish(self,text):
+ def finish(self,text=None):
+  if text is None:text=TASK_COMMENTS[self.b.get_name()]
   self.ed.add_comment_node(text,unreal.Vector2D(0,-250),unreal.Vector2D(2700,160));unreal.BlueprintEditorLibrary.compile_blueprint(self.b)
   errors=self.ed.list_nodes_with_errors();assert not errors,str(errors)
   cdo=unreal.get_default_object(self.b.generated_class())

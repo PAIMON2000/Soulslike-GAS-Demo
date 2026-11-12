@@ -2,7 +2,7 @@
 import unreal,json
 from pathlib import Path
 P=Path(unreal.Paths.project_dir())
-main=unreal.load_asset('/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_BrokenSword_Combat')
+main=unreal.load_asset('/Game/Gameplay/AI/DS3BrokenSword/Tactical/BT_断剑怪_历史_战术战斗总览')
 display=json.loads((P/'Tools/ds3_readable_labels.json').read_text(encoding='utf-8'))
 notes={int(k):v for k,v in display['NOTES'].items()}
 monster='110050 断剑敌人（树上决策版）';states=[];nodes=[];outline=[]

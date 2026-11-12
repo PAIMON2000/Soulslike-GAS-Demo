@@ -38,7 +38,8 @@ powershell -ExecutionPolicy Bypass -File .\Tools\Restore-ProjectContent.ps1
 该脚本将自有资产复制回 `Content/`，发现同路径内容不同时会停止，只有显式传入 `-Overwrite` 才覆盖。
 
 ## 进度
-- 2026-11-09 最新：完成树上决策版，入口为 `Tactical/BT_BrokenSword_Combat`，旧总览已退役；转向速度提高到360度/秒。新增从控制器绑定生成的可折叠只读阅读页，当前优先解决主树、起点、执行顺序和条件的理解问题。
+- 2026-11-13：普通断剑怪使用 `Compact/BT_BrokenSword_Combat` 和 `Compact/BT_BrokenSword_ExecuteAction`。主树先判断方向，再按远、中、近选招。原分层版已备份到本机 `LocalBackups/断剑怪_分层版_2026-11-13`。 [行为树进度](ashen-tree/UE行为树策划视图-进度.md)
+- 2026-11-09：完成树上决策版，将转向速度提高到 360 度/秒，加入从控制器绑定读取的可折叠阅读页。
 - 2026-11-09：按用户要求删除8棵无引用的旧行为树和试建树，快照与恢复清单同步清理，当前游戏入口统一为 `StandardReadable/BT_DS3_CombatOverview`。离线备份移出Content；清理后11种行动再次校验通过。BTT内部复杂度已审计，内部可读性重构尚未进行，见[清理与问题记录](docs/log/28-删除停用行为树与BTT可读性问题.md)。
 - 2026-11-09：同步断剑怪物可读标准版。当前控制器使用 `StandardReadable/BT_DS3_CombatOverview` 与独立 Actor 目标黑板，四类行动子树保留原11种行动，17项运行检查通过，待玩家试玩。见[阅读指南](docs/design/断剑敌人行为树阅读指南.md)、[运行记录](docs/reproduction/ds3-standard-validation-2026-11-08.json)；[本地HTML说明](ashen-tree/断剑怪物-行为说明.html)与[行为树整理器](ashen-tree/README.md)均可离线查看，不使用 Sites。
 - 2026-10-25：角色已切换断剑110050逻辑复刻树，旧两版树归档；原权重、动作内接近、连击及攻击后调整已接入，22项检查通过（含1000次概率抽样）。动画、侧移和特殊效果存在替代项，待试玩。见[复刻与参数位置](docs/design/断剑敌人行为树复刻.md)、[日志26](docs/log/26-断剑敌人行为树复刻原型.md)。

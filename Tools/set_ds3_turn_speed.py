@@ -3,7 +3,7 @@ import unreal,json,shutil
 from pathlib import Path
 P=Path(unreal.Paths.project_dir()); assert not unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_game_world()
 AI='/Game/Gameplay/AI/DS3BrokenSword/'
-main=unreal.load_asset(AI+'Tactical/BT_BrokenSword_Combat'); seen=set(); changes=[]
+main=unreal.load_asset(AI+'Tactical/BT_断剑怪_历史_战术战斗总览'); seen=set(); changes=[]
 backup=P/'LocalBackups/TurnSpeed-2026-11-09'; backup.mkdir(parents=True,exist_ok=True)
 def back(asset):
     rel=asset.get_path_name().split('.')[0].removeprefix('/Game/')+'.uasset'

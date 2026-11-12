@@ -7,18 +7,18 @@ p=unreal.GameplayStatics.get_player_character(w,0); c=d.get_controller()
 brain=c.get_component_by_class(unreal.BrainComponent); bb=c.get_component_by_class(unreal.BlackboardComponent)
 base=d.get_actor_location(); p.set_actor_enable_collision(False)
 T='/Game/Gameplay/AI/DS3BrokenSword/Tactical/'
-trees={name:unreal.load_asset(T+name) for name in ['BT_DecisionRules','BT_AfterAttack']}
+trees={name:unreal.load_asset(T+name) for name in ['BT_断剑怪_历史_战术选招','BT_断剑怪_攻击后恢复']}
 cases=[
- ('draw_mid', 'BT_DecisionRules',300,0,0,110050,False,{1:.20,2:.20,4:.15,5:.35,12:.10}),
- ('draw_cooldown','BT_DecisionRules',300,0,0,110050,True,{1:20/65,2:20/65,4:15/65,12:10/65}),
- ('event_single_candidate','BT_DecisionRules',300,0,100,110050,False,{20:1}),
- ('variant_single_candidate','BT_DecisionRules',300,0,0,110054,False,{54:1}),
- ('recovery_normal_mid','BT_AfterAttack',300,0,0,1,False,{0:.875,1:.075,2:.05}),
- ('recovery_special_far','BT_AfterAttack',700,0,0,20,False,{1:.25,3:.75}),
- ('recovery_movement_skips','BT_AfterAttack',300,0,0,12,False,{0:1}),
- ('recovery_team_special','BT_AfterAttack',300,1,0,20,False,{2:1})]
+ ('draw_mid', 'BT_断剑怪_历史_战术选招',300,0,0,110050,False,{1:.20,2:.20,4:.15,5:.35,12:.10}),
+ ('draw_cooldown','BT_断剑怪_历史_战术选招',300,0,0,110050,True,{1:20/65,2:20/65,4:15/65,12:10/65}),
+ ('event_single_candidate','BT_断剑怪_历史_战术选招',300,0,100,110050,False,{20:1}),
+ ('variant_single_candidate','BT_断剑怪_历史_战术选招',300,0,0,110054,False,{54:1}),
+ ('recovery_normal_mid','BT_断剑怪_攻击后恢复',300,0,0,1,False,{0:.875,1:.075,2:.05}),
+ ('recovery_special_far','BT_断剑怪_攻击后恢复',700,0,0,20,False,{1:.25,3:.75}),
+ ('recovery_movement_skips','BT_断剑怪_攻击后恢复',300,0,0,12,False,{0:1}),
+ ('recovery_team_special','BT_断剑怪_攻击后恢复',300,1,0,20,False,{2:1})]
 cases=cases[4:]
-trees['BT_AfterAttack']=unreal.load_asset('/Game/Gameplay/AI/DS3BrokenSword/Validation/BT_TacticalRecoveryOnce')
+trees['BT_断剑怪_攻击后恢复']=unreal.load_asset('/Game/Gameplay/AI/DS3BrokenSword/Validation/BT_断剑怪_验证_单轮恢复')
 phase=0; samples=0; counts={}; wall=time.monotonic(); pending=False; started=0
 report={'passed':False,'tests':[]}; out=Path(unreal.Paths.project_dir())/'Saved/DS3-Tactical/recovery-sampling.json'
 def begin():
@@ -29,7 +29,7 @@ def begin():
  d.set_actor_location(base,False,True); d.set_actor_rotation(unreal.Rotator(0,0,0),True)
  p.set_actor_location(base+unreal.Vector(distance,0,0),False,True)
  bb.set_value_as_object('TargetActor',p); bb.set_value_as_float('UnitScale',100)
- for k,v in {'TeamRole':role,'EventRequest1':event,'ThinkParamID':aid if tree=='BT_DecisionRules' else 110050,'Action':aid if tree=='BT_AfterAttack' else 0,'ForcedAction':0,'DecisionCount':0,'PostCycles':0,'AfterAction':-1}.items():bb.set_value_as_int(k,v)
+ for k,v in {'TeamRole':role,'EventRequest1':event,'ThinkParamID':aid if tree=='BT_断剑怪_历史_战术选招' else 110050,'Action':aid if tree=='BT_断剑怪_攻击后恢复' else 0,'ForcedAction':0,'DecisionCount':0,'PostCycles':0,'AfterAction':-1}.items():bb.set_value_as_int(k,v)
  bb.set_value_as_float('Last3003Time',unreal.GameplayStatics.get_time_seconds(w) if cool else -10000)
  assert c.run_behavior_tree(trees[tree]); brain.restart_logic(); started=time.monotonic()
 def finish(error=None):
@@ -40,9 +40,9 @@ def tick(dt):
  global phase,samples,counts
  try:
   name,tree,distance,role,event,aid,cool,expected=cases[phase]
-  ready=bb.get_value_as_int('DecisionCount' if tree=='BT_DecisionRules' else 'PostCycles')>0
+  ready=bb.get_value_as_int('DecisionCount' if tree=='BT_断剑怪_历史_战术选招' else 'PostCycles')>0
   if ready and time.monotonic()-started>=.3:
-   actual=bb.get_value_as_int('Action' if tree=='BT_DecisionRules' else 'AfterAction')
+   actual=bb.get_value_as_int('Action' if tree=='BT_断剑怪_历史_战术选招' else 'AfterAction')
    counts[actual]=counts.get(actual,0)+1;samples+=1
    if samples>=40:
     # Broad statistical check plus strict exclusion of ineligible actions.

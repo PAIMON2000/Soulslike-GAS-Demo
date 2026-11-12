@@ -8,8 +8,9 @@ display=json.loads((P/'Tools/ds3_readable_labels.json').read_text(encoding='utf-
 groups=display['GROUPS'];titles={int(k):v for k,v in display['TITLES'].items()}
 notes={int(k):v for k,v in display['NOTES'].items()}
 source=unreal.load_asset(AI+'BT_DS3BrokenSword') if unreal.EditorAssetLibrary.does_asset_exist(AI+'BT_DS3BrokenSword') else None
-main=unreal.load_asset(AI+'Tactical/BT_BrokenSword_Combat');assert main and main.root_node
-subtrees=[unreal.load_asset(AI+'StandardReadable/BT_DS3_'+g[0]) for g in groups];assert all(subtrees)
+main=unreal.load_asset(AI+'Tactical/BT_断剑怪_历史_战术战斗总览');assert main and main.root_node
+asset_names={'Melee':'近身攻击','Ranged':'远距攻击','Spacing':'调整位置与朝向','Special':'执行特殊招式'}
+subtrees=[unreal.load_asset(AI+'StandardReadable/BT_断剑怪_'+asset_names[g[0]]) for g in groups];assert all(subtrees)
 bb=main.blackboard_asset
 assert all(t.blackboard_asset==bb for t in subtrees)
 target=next(k for k in bb.get_editor_property('keys') if str(k.get_editor_property('entry_name'))=='TargetActor')

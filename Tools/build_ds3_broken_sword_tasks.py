@@ -17,7 +17,7 @@ mc,mcp=movement(g,e,scale);speed=g.get('MaxWalkSpeed','/Script/Engine.CharacterM
 cast=g.cast('Character');link(e,'ControlledPawn',cast,'Object');seq(cache,cast)
 capsule=g.get('CapsuleComponent','/Script/Engine.Character');link(cast,castout(cast),capsule,'self');radius=g.fn('/Script/Engine.CapsuleComponent.GetScaledCapsuleRadius');link(capsule,'CapsuleComponent',radius,'self')
 r=g.bbset('Float','RadiusCm',cast,source=(radius,'ReturnValue'));mark=g.bbset('Bool','Initialized',r,True);finish(g,mark)
-g.finish('Initialize once: 100cm/unit is an exposed porting assumption, not a verified DS3 conversion. Cache actual capsule radius/run speed. No old combat ring or global cooldown.')
+g.finish()
 
 # Weighted choice. All random values are stored once before reuse.
 ids=[1,2,4,5,6,11,12,13,20,21]
@@ -79,7 +79,7 @@ for i in ids:
  less=g.calc('Less_DoubleDouble',g.get('Roll'),'Roll',cumulative,cp);choice=g.branch((less,'ReturnValue'));seq(previous,choice,out)
  selected=g.bbset('Int','Action',choice,i);finish(g,selected);previous=choice;out='else'
 fallback=g.bbset('Int','Action',previous,13,out='else');finish(g,fallback)
-g.finish('110050 decision once per action cycle. Source ordinary/side-back priorities, team roles, event/ThinkParam variants, 3003-only 20s gate. ForcedAction=0 normally. Never selects on Tick.')
+g.finish()
 
 # Configure native locomotion once at action entry; native CharacterMovement turns.
 variables=[('BaseRange','real',2.5),('RunOffset','real',.7),('RunChance','int',100),('ForceRunOffset','real',2.5),('WalkSpeed','real',120.0),('TurnRate','real',360.0),('AlwaysWalk','bool',False)]
@@ -96,10 +96,10 @@ branch=g.branch((run,'ReturnValue'));seq(setrot,branch)
 for output,source,sp,life in [('then',g.bbget('Float','RunSpeed'),'ReturnValue',8),('else',g.get('WalkSpeed'),'WalkSpeed',4)]:
  n=g.set('MaxWalkSpeed','/Script/Engine.CharacterMovementComponent');link(mc,mcp,n,'self');link(source,sp,n,'MaxWalkSpeed');seq(branch,n,output);t=g.bbset('Float','ApproachLife',n,life)
  focus=g.fn('/Script/AIModule.AIController.K2_SetFocus');link(e,'OwnerController',focus,'self');link(target,'ReturnValue',focus,'NewFocus');seq(t,focus);finish(g,focus)
-g.finish('Action-entry approach settings: subtract actual capsule radius; walk within +0.7 units, otherwise run; 4s walk/8s run budget. Focus/turn limit is a UE proxy parameter, not recovered DS3 native rotation.')
+g.finish()
 
 # Combo length sampled once and retained until sequence finishes.
-g=Graph('BTT_DSComboChoice',[],['ReceiveExecuteAI']);e=g.events['ReceiveExecuteAI'];rng=g.fn(KM+'RandomIntegerInRange');val(rng,'Min',1);val(rng,'Max',100);third=g.calc('Greater_IntInt',rng,constant=25);s=g.bbset('Bool','ThirdHit',e,source=(third,'ReturnValue'));finish(g,s);g.finish('Act01/02: 25% two queued strikes, 75% three. Choice happens once, not at every strike.')
+g=Graph('BTT_DSComboChoice',[],['ReceiveExecuteAI']);e=g.events['ReceiveExecuteAI'];rng=g.fn(KM+'RandomIntegerInRange');val(rng,'Min',1);val(rng,'Max',100);third=g.calc('Greater_IntInt',rng,constant=25);s=g.bbset('Bool','ThirdHit',e,source=(third,'ReturnValue'));finish(g,s);g.finish()
 
 # Committed strike using a fresh montage mapping; no global cooldown or extra range gate.
 g=Graph('BTT_DSAttack',[('Montage','montage',unreal.load_asset('/Game/Gameplay/Anims/Enemy/AM_EnemyAttack')),('SourceAttackID','int',3000),('Started','bool',False)],['ReceiveExecuteAI','ReceiveTickAI','ReceiveAbortAI'])
@@ -111,5 +111,5 @@ asc=g.fn('/Script/GameplayAbilities.AbilitySystemBlueprintLibrary.GetAbilitySyst
 ok=g.branch((activate,'ReturnValue'));seq(activate,ok);mark=g.store('Started',ok,True);idmatch=g.calc('EqualEqual_IntInt',g.get('SourceAttackID'),'SourceAttackID',constant=3003);special=g.branch((idmatch,'ReturnValue'));seq(mark,special);g.bbset('Float','Last3003Time',special,source=(now(g),'ReturnValue'));finish(g,ok,False,'else');finish(g,cast,False,'CastFailed')
 asc2=g.fn('/Script/GameplayAbilities.AbilitySystemBlueprintLibrary.GetAbilitySystemComponent');link(tick,'ControlledPawn',asc2,'Actor');tags=g.fn('/Script/GameplayAbilities.AbilitySystemComponent.GetGameplayTagCount');link(asc2,'ReturnValue',tags,'self');val(tags,'GameplayTag','(TagName="State.Attacking")');zero=g.calc('EqualEqual_IntInt',tags,constant=0);started=g.branch((g.get('Started'),'Started'));seq(tick,started);done=g.branch((zero,'ReturnValue'));seq(started,done);finish(g,done)
 cast=g.cast('BaseCharacter');link(abort,'ControlledPawn',cast,'Object');seq(abort,cast);cancel=g.fn('/Script/ProjectUnreal.BaseCharacter.CancelAttack');link(cast,castout(cast),cancel,'self');seq(cast,cancel);tail=stop(g,abort,cancel);finish(g,tail,abort=True);finish(g,cast,out='CastFailed',abort=True)
-g.finish('One committed strike. Select proxy montage then activate independent GA. Tick only waits for ability completion. Update only 3003 history at successful start. Abort cancels GA and movement. No old five-second cooldown.')
+g.finish()
 print('DS3_CORE_TASKS_READY')
